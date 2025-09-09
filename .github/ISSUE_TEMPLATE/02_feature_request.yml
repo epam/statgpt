@@ -1,0 +1,19 @@
+name: "🚀 Feature request"
+description: Suggest an idea for this project
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for suggesting an idea to improve StatGPT.
+        Please fill in as much of the following form as you're able.
+  - type: textarea
+    attributes:
+      label: What would you like to see improved in StatGPT Documentation?
+      description: Enter details about your idea.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Additional information
+      description: Tell us anything else you think we should know.

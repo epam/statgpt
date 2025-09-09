@@ -1,0 +1,19 @@
+name: 🐞 Bug report
+description: Create a report to help us improve
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for reporting an issue to improve StatGPT.
+        Please fill in as much of the following form as you're able.
+  - type: textarea
+    attributes:
+      label: What issue did you find in StatGPT Documentation?
+      description: Enter details about your issue.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Additional information
+      description: Tell us anything else you think we should know.

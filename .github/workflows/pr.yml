@@ -1,0 +1,58 @@
+name: PR Workflow
+
+on:
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  pre-commit:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Set up Python
+        uses: epam/ai-dial-ci/actions/python_prepare@2.4.1
+        with:
+          python-version: "3.11"
+
+      - name: Install pre-commit
+        run: |
+          python -m pip install --upgrade pip
+          pip install pre-commit
+
+      - name: Cache pre-commit hooks
+        uses: actions/cache@0400d5f644dc74513175e3cd8d07132dd4860809 # v4.2.4
+        with:
+          path: ~/.cache/pre-commit
+          key: pre-commit-${{ runner.os }}-${{ hashFiles('.pre-commit-config.yaml') }}
+          restore-keys: |
+            pre-commit-${{ runner.os }}-
+
+      - name: Install pre-commit hooks
+        run: pre-commit install
+
+      - name: Check if files are properly formatted
+        run: |
+          echo "Running pre-commit on all files..."
+          echo "If this step fails, it means pre-commit made changes to fix issues."
+          echo "Please run 'pre-commit run --all-files' locally and commit the changes."
+          echo ""
+
+          # Run pre-commit and capture the exit code
+          if pre-commit run --all-files --show-diff-on-failure; then
+            echo "✅ All files are properly formatted!"
+          else
+            echo ""
+            echo "❌ Pre-commit found issues and made changes."
+            echo "Please run the following commands locally:"
+            echo "  pip install pre-commit"
+            echo "  pre-commit install"
+            echo "  pre-commit run --all-files"
+            echo "Then commit and push the changes."
+            exit 1
+          fi
