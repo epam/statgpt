@@ -20,15 +20,11 @@ the corresponding repository.
 
 Here is the current list of repositories:
 
-- [StatGPT Helm](https://github.com/epam/statgpt-helm) - helm chart, find stable assemblies here.
-- [StatGPT Backend](https://github.com/epam/statgpt-backend) - admin and chat backend, which exposes admin and user
-  APIs.
-- [StatGPT Admin Frontend](https://github.com/epam/statgpt-admin-frontend) - admin frontend, which uses admin APIs to
-  manage the platform.
-- [StatGPT Portal Frontend](https://github.com/epam/statgpt-portal-frontend) - library for building custom StatGPT
-  portal applications.
-- [StatGPT Global Data Commons Frontend](https://github.com/epam/statgpt-global-data-frontend) - implementation of
-  StatGPT portal for Global Data Commons initiative.
+- [StatGPT Helm Chart](https://github.com/epam/statgpt-helm) - Helm chart for deploying StatGPT on Kubernetes.
+- [StatGPT Backend](https://github.com/epam/statgpt-backend) - Admin and Chat backend applications. Main logic and API.
+- [StatGPT Admin Frontend](https://github.com/epam/statgpt-admin-frontend) - Admin frontend application. UI for managing StatGPT configurations.
+- [StatGPT Portal Frontend](https://github.com/epam/statgpt-portal-frontend) - UI Library for building custom StatGPT Portal applications.
+- [StatGPT Global Trusted Data Commons](https://github.com/epam/statgpt-global-trusted-data-commons) - implementation of StatGPT Portal for Global Trusted Data Commons initiative.
 
 # Project Vision
 
@@ -275,12 +271,3 @@ please refer to publications or original article.
 - Report security issue: WFBMarketingAskEPAM@epam.com
 - For business and sales inquiries: WFBMarketingAskEPAM@epam.com
 - For press and media inquiries: WFBMarketingAskEPAM@epam.com
-
-# Getting Help
-
-First, please check our regularly updated [FAQ](), as your question may already have been answered.
-
-If you have a specific question, you can open an issue with the `question` label.
-
-If you're unsure and would like to speak with someone, you can join the #RAIL discord channel
-on [this server](https://discord.gg/3TPc4zV4gS) and ask people there.

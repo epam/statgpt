@@ -1,0 +1,6 @@
+.idea
+*.iml
+*.bkp
+*.dtmp
+.DS_Store
+.vscode
