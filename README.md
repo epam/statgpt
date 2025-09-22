@@ -1,36 +1,55 @@
-# StatGPT Documentation
+# StatGPT
 
-## Project Overview and Contribution Guide
+**StatGPT** is an AI-driven Talk-To-Your-Data platform that enables users to interact with official statistics data using natural language. It leverages large language models to provide insights, analysis, and visualizations from statistical databases through conversational queries.
 
-- [Contribution Guide](https://github.com/epam/statgpt/blob/main/CONTRIBUTING.md)
-- [License](https://github.com/epam/statgpt/blob/main/LICENSE)
+## 🎯 What is StatGPT?
 
-## Architecture
+StatGPT bridges the gap between complex statistical databases and everyday users. It specializes in:
+- Natural language querying of official statistics
+- SDMX-native data processing
+- Multi-source indicator discovery
+- Automated data visualization
+- Hallucination prevention through data grounding
 
-- [Architecture Overview](/ToDo)
+## 📚 Documentation
 
-## Quick Start
+### Architecture & Design
+- [Architecture Overview](./architecture/overview.md) - Solution overview and core requirements
+- [Agent Design](./architecture/agent.md) - AI agent implementation approach
+- [Services Overview](./architecture/services.md) - Core services and dependencies
+- [Tools Documentation](./architecture/tools.md) - Available tools and capabilities
+- [SDMX Compatibility](./architecture/sdmx-compatibility.md) - SDMX integration details
 
-- [Quick Start Guide](./ToDo)
+### Guides
+- [Admin Guide](./guides/admin-guide.md) - System administration and configuration
 
-## Helm Deployment
+### Development
+- [Contributing](./CONTRIBUTING.md) - Contribution guidelines
+- [Security Policy](./SECURITY.md) - Security and vulnerability reporting
+- [Data Query Evaluation](./evaluation/data_query.md) - Evaluation methodology for SDMX data queries
 
-- [StatGPT Generic Installation Guide](https://github.com/epam/statgpt-helm/tree/chore/add_deployment_guide/charts/statgpt/examples/generic)
-- [Azure Installation](https://github.com/epam/statgpt-helm/tree/chore/add_deployment_guide/charts/statgpt/examples/azure)
+## 🚀 Getting Started
 
-## DIAL Platform Documentation
+### Deployment
+- [StatGPT Helm Charts](https://github.com/epam/statgpt-helm) - Kubernetes deployment
+- [Generic Installation](https://github.com/epam/statgpt-helm/tree/main/charts/statgpt/examples/generic)
+- [Azure Installation](https://github.com/epam/statgpt-helm/tree/main/charts/statgpt/examples/azure)
 
-- [Main Website](https://dialx.ai)
-- [API](https://github.com/epam/ai-dial)
-- [Knowledge Base](https://docs.dialx.ai/)
-- [GitHub Documentation](https://github.com/epam/ai-dial)
+### Source Repositories
+- [Backend Services](https://github.com/epam/statgpt-backend) - Core backend implementation
+- [Admin Frontend](https://github.com/epam/statgpt-admin-frontend) - Administration UI
+- [Portal Frontend](https://github.com/epam/statgpt-portal-frontend) - User interface library
+- [Global Trusted Data Commons](https://github.com/epam/statgpt-global-trusted-data-commons) - Reference portal implementation
 
-## Other DIAL Project Open Source Repositories
+## 🔗 AI DIAL Platform
 
-Here is the current list of repositories where you can find more details.
+StatGPT is built on [AI DIAL](https://dialx.ai) - an enterprise AI platform providing:
+- LLM model management
+- Access control and security
+- Rate limiting and monitoring
+- [Documentation](https://docs.dialx.ai/)
 
-- [StatGPT Helm Chart](https://github.com/epam/statgpt-helm) - Helm chart for deploying StatGPT on Kubernetes.
-- [StatGPT Backend](https://github.com/epam/statgpt-backend) - Admin and Chat backend applications. Main logic and API.
-- [StatGPT Admin Frontend](https://github.com/epam/statgpt-admin-frontend) - Admin frontend application. UI for managing StatGPT configurations.
-- [StatGPT Portal Frontend](https://github.com/epam/statgpt-portal-frontend) - UI Library for building custom StatGPT Portal applications.
-- [StatGPT Global Trusted Data Commons](https://github.com/epam/statgpt-global-trusted-data-commons) - implementation of StatGPT Portal for Global Trusted Data Commons initiative.
+## 📧 Support
+
+- **Issues**: Use GitHub Issues in respective repositories
+- **Business**: WFBMarketingAskEPAM@epam.com

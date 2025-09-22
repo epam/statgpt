@@ -79,6 +79,9 @@ Data Query tool uses:
 - Keyword search for exact term matching
 - LLM reasoning to identify related indicators
 
+Currently, StatGPT supports both semantic-only and hybrid semantic+fulltext search modes. Both modes utilize same embedding 
+model: `text-embedding-3-large` by OpenAI. Hybrid mode additionally uses ElasticSearch for fulltext search.
+
 ### Data Accuracy & Hallucination Prevention
 
 **Strategy**: StatGPT ensures data accuracy through multiple mechanisms:
