@@ -16,7 +16,7 @@ familiarizing yourself with this repository.
 For instructions on how to build, test, run, and configure a specific component, please refer to the README.md file in
 the corresponding repository.
 
-# Project structure
+# Project Structure
 
 Here is the current list of repositories:
 
@@ -24,21 +24,21 @@ Here is the current list of repositories:
 - [StatGPT Backend](https://github.com/epam/statgpt-backend) - Admin and Chat backend applications. Main logic and API.
 - [StatGPT Admin Frontend](https://github.com/epam/statgpt-admin-frontend) - Admin frontend application. UI for managing StatGPT configurations.
 - [StatGPT Portal Frontend](https://github.com/epam/statgpt-portal-frontend) - UI Library for building custom StatGPT Portal applications.
-- [StatGPT Global Trusted Data Commons](https://github.com/epam/statgpt-global-trusted-data-commons) - implementation of StatGPT Portal for Global Trusted Data Commons initiative.
+- [StatGPT Global Trusted Data Commons](https://github.com/epam/statgpt-global-trusted-data-commons) - Implementation of StatGPT Portal for the Global Trusted Data Commons initiative.
 
 # Project Vision
 
-StatGPT is AI-driven Talk-To-Your-Data platform specializing in official statistical data. It is designed to help users
-and statistical organizations to query, transform, analyze, visualize, and interpret statistical data disseminated
-using [SDMX Standard](https://sdmx.org/) using natural language interface. StatGPT is built on top of the
+StatGPT is an AI-driven Talk-To-Your-Data platform specializing in official statistical data. It is designed to help users
+and statistical organizations query, transform, analyze, visualize, and interpret statistical data disseminated
+using the [SDMX Standard](https://sdmx.org/) through a natural language interface. StatGPT is built on top of the
 [DIAL platform](https://dialx.ai/platform), which enables enterprise-grade governance and security. It is designed to
 be cloud-agnostic and LLM-model-agnostic from technical and licensing perspectives.
 
 StatGPT implements the following key features:
 
-- Configuration-based indexing and search of SDMX datasets' metadata using SDMX REST APIs, Elasticsearch, LLMs and vector
-  database.
-- AI Agent with capabilities to query SDMX datasets using natural language and support for multi-turn conversations.
+- Configuration-based indexing and search of SDMX datasets' metadata using SDMX REST APIs, Elasticsearch, LLMs, and vector
+  databases.
+- AI Agent with capabilities to query SDMX datasets using natural language, with support for multi-turn conversations.
 - Admin UI for configuring and managing the platform.
 - API-first design, enabling easy integration with third-party applications and services.
 
@@ -47,13 +47,13 @@ StatGPT implements the following key features:
 Every new feature will be meticulously evaluated for:
 
 - Overall correctness
-- API-first design, ensuring usefulness for extensions and derived work
+- API-first design, ensuring usefulness for extensions and derived works
 - Impact on performance
 - Impact on the overall solution's security
 - Impact on privacy: the platform is not intended to store personal data
 - Compatibility with permissive licensing
 - Compatibility with third-party solutions such as models, deployment orchestration systems, identity providers (SSO
-  platforms), log, telemetry, or secret storages
+  platforms), log, telemetry, and secret storages
 - Impact on technology footprint
 - Impact on overall system complexity
 
@@ -69,15 +69,14 @@ However, if there are quality concerns, the release may be postponed for an addi
 
 Since GitHub only supports milestones within a single repository, we use a custom field called `Milestones` in
 the [StatGPT Project](https://github.com/orgs/epam/projects/TBD). The built-in milestone field is not used. When we
-refer
-to a milestone, we mean this custom field.
+refer to a milestone, we mean this custom field.
 
 Milestones are used to indicate the target release version (and date) for a given issue. The milestone name format is
-`2025-09-26`(yyyy-MM-dd). We maintain the scope of one current and two upcoming milestones. The plan for the current
+`2025-09-26` (yyyy-MM-dd). We maintain the scope of one current and two upcoming milestones. The plan for the current
 milestone can be considered accurate with minor deviations (subject to changes every Monday). The two upcoming
 milestones may undergo significant changes, but they provide an indication of our current objectives.
 
-If an issue does not have a milestone, it is in the plan and not expected to be addressed in the near future.
+If an issue does not have a milestone, it is not in the plan and not expected to be addressed in the near future.
 
 ## Schedule
 
@@ -91,8 +90,7 @@ Our weekly schedule is as follows:
 ## Versioning
 
 StatGPT components adhere to [semantic versioning](https://semver.org/). We aim to maintain protocol compatibility
-between
-different minor releases, with breaking changes only occurring in major version updates. However, only stable assemblies
+between different minor releases, with breaking changes only occurring in major version updates. However, only stable assemblies
 from [StatGPT Helm](https://github.com/epam/statgpt-helm) have been fully tested for integration.
 
 The version of a stable assembly is determined by the name of the Milestone.
@@ -102,12 +100,10 @@ Patch versions are only created to deliver hot fixes to an existing release.
 ## Release Support
 
 Currently, StatGPT does not offer Long-Term Support (LTS) versions. Therefore, we only **apply patches to the two most
-recent releases**, mostly security fixes or high severe bugs. These updates occur alongside the standard release flow
-and include both bug fixes and potential security-related fixes. Given the rapid development in this field, patching
-earlier releases seems impractical. However, since StatGPT does not contain any business logic or LLMs, frequent updates
-should not impact the application's logic.
+recent releases**, mostly security fixes or highly severe bugs. These updates occur alongside the standard release flow
+and include both bug fixes and potential security-related fixes.
 
-If you require a patch for an older revision, please contact our [Business team](mailto:WFBMarketingAskEPAM@epam.com).
+If you require a patch for an older revision, please contact our [Business team](mailto:SupportEPM-DIALStatGPT@epam.com).
 
 # Issues
 
@@ -116,17 +112,17 @@ The primary method for reporting defects or suggesting changes is to create an i
 We categorize issues using the following labels:
 
 - `bug` - to identify defects
-- `enhancement` - for improvements of existing functionality or new feature. In case it's hard to say if it's `bug` or
-  `enhancement`, `enhancement` will be used.
-- `question` - for seeking help with specific questions
+- `enhancement` - for improvements to existing functionality or new features. When it's unclear whether something is a `bug` or
+  an `enhancement`, `enhancement` will be used.
+- `question` - for seeking help or clarification
 
 Some issues may be closed with the following statuses:
 
 - `invalid` - for incorrectly reported issues
 - `wontfix` - for issues we are unable to fix
 
-Issues can be opened by any developer or external contributor. Labels will be assigned by development team or planning
-manager once issue is processed. Currently, we use a straightforward issue flow:
+Issues can be opened by any developer or external contributor. Labels will be assigned by the development team or planning
+manager once the issue is processed. Currently, we use a straightforward issue flow:
 
 1. An issue is reported.
 2. Once the implementation is planned, a milestone is assigned.
@@ -149,11 +145,11 @@ with release branches. Here are the key points:
 - Development occurs in feature branches (issue reference in the name is mandatory) or forks. Once ready for review, a
   PR into `development` must be opened (issue reference in the name is mandatory).
 - After a PR is merged into development, scripts automatically update the version (in version files) to the highest
-  existing tag and increment the minor version by one. In case we merged commit with `BREAKING CHANGE` in a title, major
+  existing tag and increment the minor version by one. If we merge a commit with `BREAKING CHANGE` in the title, the major
   version will be updated instead. Then, we publish artifacts with the version `major.minor.patch-rc`.
 - We follow an "upstream-first" approach. To patch an existing release, we first fix the `development` branch and then
   cherry-pick the necessary commits into the branch based on the release to be patched.
-- Only in rare cases when a fix is no longer relevant for `development`, we may skip the previous step and create a PR
+- Only in rare cases when a fix is no longer relevant for `development` may we skip the previous step and create a PR
   directly to `release`. The merge will be done with a squash.
 - When merging PRs into `development`, we squash commits with a fast-forward merge.
 - When merging from `development` to `release`, we do not squash commits.
@@ -170,17 +166,17 @@ delivery pace and focus. Therefore, before committing to a review, we need to en
 basic criteria:
 
 - Unit tests are mandatory for new features and fixes. A test cannot be considered a unit test if it performs network
-  communications with other services.
-- All unit tests should pass in the PR
+  communication with other services.
+- All unit tests must pass in the PR
 - Linting checks (checkstyle, black, etc.) must pass.
 - The PR should reference an issue that includes a description (see Issue section).
-- Issue with `approved-contribution` (see below) to ensure change complies with the product vision.
+- Issue must have `approved-contribution` label (see below) to ensure the change complies with the product vision.
 - Since we squash commits, we don't have specific requirements for commit titles (use common sense). However, the PR
   name must comply with [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
 - There must be no merge conflicts upon initial submission and during each subsequent review iteration.
 - Coding principles must be respected.
 
-Once the PR is ready for review , the issue will be reassigned from the contributor to the reviewer.
+Once the PR is ready for review, the issue will be reassigned from the contributor to the reviewer.
 
 ## Getting Your PR Review into Scope
 
@@ -190,7 +186,7 @@ codebase, reviewing PRs requires additional work from a maintainer. Hence, it's 
 have sufficient time to promptly review your PR.
 
 Begin your contribution by opening a GitHub issue and explaining the change you intend to make. Please explicitly
-mention in a title or beginning of the description that this is something you want to develop. This issue will be
+mention in the title or at the beginning of the description that this is something you want to develop. This issue will be
 labeled as `external-contribution` once processed. Engage in the discussion with the development team, which may respond
 immediately or later (as we dedicate Thursdays to issue processing). Once an agreement is reached, the maintainer will
 confirm this in the comments and add the `approved-contribution` label. Then, a planning manager will assign an
@@ -213,7 +209,7 @@ a bold violation of any principle will result in a rejected PR.
 
 ## No Magic
 
-When multiple alternative approaches exist, we should strive for transparency and choose the more imperative approach
+When multiple alternative approaches exist, we should strive for transparency and choose the more explicit approach
 over a declarative one that hides details under a complex implementation.
 
 ## No New Tech Dependencies Without Justification
@@ -239,7 +235,7 @@ generalization.
 ## No Grand Code
 
 In addition to the previous point, long and complicated implementations are usually wrong. Therefore, code conciseness
-is a good quality metric. **PRs with over lines 1000 changed (excluding tests and docs) will be rejected due to their
+is a good quality metric. **PRs with over 1000 lines changed (excluding tests and docs) will be rejected due to their
 size, with rare exceptions.**
 
 ## No Dead Code
@@ -261,13 +257,13 @@ requires the most severe justification.
 
 Code is the most formal and explicit way to explain things. If this is not true for your code, it indicates
 overengineering. Comments should explain motivation, not implementation. To describe algorithms and scientific methods,
-please refer to publications or original article.
+please refer to publications or the original article.
 
 # Communication Channels
 
 - For defects and feature requests open issues in corresponding
   repo: [https://github.com/epam/statgpt-*](https://github.com/search?q=statgpt+in%3Aname+org%3Aepam&type=repositories)
-- To contact the code owners team: WFBMarketingAskEPAM@epam.com
-- Report security issue: WFBMarketingAskEPAM@epam.com
-- For business and sales inquiries: WFBMarketingAskEPAM@epam.com
-- For press and media inquiries: WFBMarketingAskEPAM@epam.com
+- To contact the code owners team: SupportEPM-DIALStatGPT@epam.com
+- Report security issues: https://github.com/epam/statgpt/security/advisories/new
+- For business and sales inquiries: SupportEPM-DIALStatGPT@epam.com
+- For press and media inquiries: SupportEPM-DIALStatGPT@epam.com

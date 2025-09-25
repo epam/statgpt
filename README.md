@@ -1,6 +1,8 @@
 # StatGPT
 
-**StatGPT** is an AI-driven Talk-To-Your-Data platform that enables users to interact with official statistics data using natural language. It leverages large language models to provide insights, analysis, and visualizations from statistical databases through conversational queries.
+**StatGPT** is an AI-driven Talk-To-Your-Data platform that enables users to interact with official statistics data 
+using natural language. It leverages large language models to provide most relevant data from statistical databases 
+through API and conversational interfaces.
 
 ## 🎯 What is StatGPT?
 
@@ -13,11 +15,11 @@ StatGPT bridges the gap between complex statistical databases and everyday users
 
 ## 📚 Documentation
 
-### Architecture & Design
-- [Architecture Overview](./architecture/overview.md) - Solution overview and core requirements
-- [Agent Design](./architecture/agent.md) - AI agent implementation approach
+### [Architecture & Design](./architecture/README.md)
+
+**Highlights:**
 - [Services Overview](./architecture/services.md) - Core services and dependencies
-- [Tools Documentation](./architecture/tools.md) - Available tools and capabilities
+- [Architecture Overview](./architecture/overview.md) - Solution overview and core requirements
 - [SDMX Compatibility](./architecture/sdmx-compatibility.md) - SDMX integration details
 
 ### Guides
@@ -28,18 +30,23 @@ StatGPT bridges the gap between complex statistical databases and everyday users
 - [Security Policy](./SECURITY.md) - Security and vulnerability reporting
 - [Data Query Evaluation](./evaluation/data_query.md) - Evaluation methodology for SDMX data queries
 
-## 🚀 Getting Started
+## 🚀 Deployment & Source Code
 
 ### Deployment
-- [StatGPT Helm Charts](https://github.com/epam/statgpt-helm) - Kubernetes deployment
+
+- [StatGPT Helm Chart](https://github.com/epam/statgpt-helm) - Helm chart for deploying StatGPT on Kubernetes.
 - [Generic Installation](https://github.com/epam/statgpt-helm/tree/main/charts/statgpt/examples/generic)
 - [Azure Installation](https://github.com/epam/statgpt-helm/tree/main/charts/statgpt/examples/azure)
 
 ### Source Repositories
-- [Backend Services](https://github.com/epam/statgpt-backend) - Core backend implementation
-- [Admin Frontend](https://github.com/epam/statgpt-admin-frontend) - Administration UI
-- [Portal Frontend](https://github.com/epam/statgpt-portal-frontend) - User interface library
-- [Global Trusted Data Commons](https://github.com/epam/statgpt-global-trusted-data-commons) - Reference portal implementation
+
+- [StatGPT Backend](https://github.com/epam/statgpt-backend) - Admin and Chat backend applications. Main logic and API.
+- [StatGPT Admin Frontend](https://github.com/epam/statgpt-admin-frontend) - Admin frontend application. UI for 
+  managing StatGPT configurations.
+- [StatGPT Portal Frontend](https://github.com/epam/statgpt-portal-frontend) - UI Library for building custom StatGPT 
+  Portal applications.
+- [StatGPT Global Trusted Data Commons](https://github.com/epam/statgpt-global-trusted-data-commons) - implementation 
+  of StatGPT Portal for Global Trusted Data Commons initiative.
 
 ## 🔗 AI DIAL Platform
 
@@ -52,4 +59,4 @@ StatGPT is built on [AI DIAL](https://dialx.ai) - an enterprise AI platform prov
 ## 📧 Support
 
 - **Issues**: Use GitHub Issues in respective repositories
-- **Business**: WFBMarketingAskEPAM@epam.com
+- **Business**: SupportEPM-DIALStatGPT@epam.com

@@ -1,38 +1,42 @@
 # Administrator Guide
 
-This document covers StatGPT Admin Frontend, it's features and StatGPT Configurations.
+This document covers the StatGPT Admin Frontend, its features, and StatGPT configurations.
 
 ## Administrator App
 
 StatGPT Admin is an application that focuses solely on managing StatGPT configurations, including data sources,
-datasets and channels. The application does not cover user management, authentication, authorization, monitoring or
-cost control, which are handled by DIAL platform.
+datasets,
+and channels. The application does not cover user management, authentication, authorization, monitoring, or cost
+control,
+which are handled by the DIAL platform. More information on this topic can be found
+in the [architecture overview article](../architecture/overview.md#-core-requirements).
 
 ## Concepts
 
-In StatGPT we have several key concepts that will be used throughout the document:
+StatGPT uses several key concepts that will be referenced throughout this document:
 
-1. Data Source - a source of data that can be queried using SDMX protocol. Examples of data sources are IMF, Eurostat,
+1. **Data Source** - A source of data that can be queried using the SDMX protocol. Examples of data sources include IMF,
+   Eurostat,
    World Bank, etc.
-2. Dataset - a dataset is a direct representation of SDMX dataflow in datasource, with addition of StatGPT-specific
+2. **Dataset** - A direct representation of an SDMX dataflow in a datasource, with the addition of StatGPT-specific
    configurations.
-3. Channel - a channel is a representation of StatGPT application for the end users. Each channel has its own
-   configuration,
-   datasets and index. Having multiple channels allows to experiment with different LLM/index/datasets configurations.
-   Each channel is represented by a separate DIAL Application.
+3. **Channel** - A representation of the StatGPT application for end users. Each channel has its own
+   configuration, datasets, and index. Having multiple channels allows experimentation with different LLM/index/dataset
+   configurations.
+   Each channel is represented as a separate DIAL Application.
 
 ## Add Data Source
 
 To add a new data source:
 
-1. Navigate to the "Data Sources" tab and click on the "Add" button
-   ![DataSource List](./content/datasource-list.png)
-2. Fill in the required fields in the form, including selecting datasource type:
-   ![Add Data Source](./content/datasource-type.png)
+1. Navigate to the "Data Sources" tab and click the "Add" button
+   ![DataSource List](./content/admin-guide/datasource-list.png)
+2. Fill in the required fields in the form, including selecting the datasource type:
+   ![Add Data Source](./content/admin-guide/datasource-type.png)
 3. Fill the configuration fields for the selected datasource type and save the datasource:
-   ![Add Data Source Config](./content/datasource-config.png)
+   ![Add Data Source Config](./content/admin-guide/datasource-config.png)
 
-Configuration for IMF SDMX 2.1 datasource with English locale is as follows:
+Configuration for an IMF SDMX 2.1 datasource with English locale is as follows:
 
 ```yaml
 locale: en  # Locale for the datasource, e.g., 'en' for English. Used for indexing and querying.
@@ -79,20 +83,25 @@ description: ""  # Optional description of the datasource
 annotationsUrl: https://api.imf.org/external/sdmx/3.0  # Optional URL for annotations
 ```
 
+Once the datasource is created, you can edit its details by clicking the "Edit" button in the data sources section.
+This is typically required when datasource characteristics or connection parameters have changed.
+
+![Edit Data Source](./content/admin-guide/datasource-edit.png)
+
 ## Datasets
 
-To add a new dataset from already configured datasource:
+To add a new dataset from an already configured datasource:
 
 1. Navigate to the "Datasets" tab and click on the "Add" button
 2. Select the datasource from the table and click "Next":
-   ![Select Datasource](./content/dataset-datasource.png)
-3. You will be provided with the table of datasets available in the selected datasource. Select the dataset from the
+   ![Select Datasource](./content/admin-guide/dataset-datasource.png)
+3. You will see a table of datasets available in the selected datasource. Select the desired dataset from the
    table and click "Next":
-   ![Select Dataset](./content/dataset-select.png)
+   ![Select Dataset](./content/admin-guide/dataset-select.png)
 4. Fill in the required fields in the form and save the dataset:
-   ![Add Dataset](./content/dataset-config.png)
+   ![Add Dataset](./content/admin-guide/dataset-config.png)
 
-Configuration for IMF WEO dataset is as follows:
+Configuration for the IMF WEO dataset is as follows:
 
 ```yaml
 urn: IMF.RES:WEO(6.0.0)  # SDMX urn of the dataset
@@ -144,20 +153,25 @@ indexer: # indexer configuration for the dataset
   description: *weo_description  # description to use for indexing
 ```
 
+Once the dataset is created, you can edit its details by clicking the "Edit" button in the datasets section. This is
+typically required when the dataset structure has changed or indexing parameters need to be updated.
+
+![Edit Dataset](./content/admin-guide/dataset-edit.png)
+
 ## Channels
 
 To add a new channel:
 
 1. Navigate to the "Channels" tab and click on the "Add" button
 2. Fill in the required fields in the form and save the channel:
-   ![Add Channel](./content/channel-create.png)
+   ![Add Channel](./content/admin-guide/channel-create.png)
 3. Add channel configurations as described in the next section:
-   ![Channel Configurations](./content/channel-config.png)
+   ![Channel Configurations](./content/admin-guide/channel-config.png)
 4. Once the channel is created you will be redirected to the channel details page. Here you can add datasets to the
    channel:
-   ![Add Dataset to Channel](./content/channel-add-dataset.png)
+   ![Add Dataset to Channel](./content/admin-guide/channel-add-dataset.png)
 
-Configuration for Global Data channel is as follows:
+Configuration for the Global Data channel is as follows:
 
 ```yaml
 conversationStarters: # predefined conversation starters to show in the chat interface
@@ -392,3 +406,80 @@ termDefinitions: # configurations for the Term_Definitions tool
     limit: 10
 ```
 
+Channel has the following context menu options:
+
+![Channel Menu](./content/admin-guide/channel-menu.png)
+
+Once the channel is created, you can edit its details by clicking the "Edit" button in the channels section. This
+is typically required when configurations need to be updated.
+
+![Edit Channel](./content/admin-guide/channel-edit.png)
+
+### Glossary of Terms
+
+Once a channel is created, you can create and edit a glossary for that channel. The glossary is a set of term-definition
+pairs
+used by glossary tools to explain various terms and their definitions to users.
+
+By selecting "Glossary" in the Channel context menu, you will be redirected to the glossary page:
+
+![Glossary Page](./content/admin-guide/glossary-page.png)
+
+There you can add and edit terms:
+
+![Add Term](./content/admin-guide/glossary-add-term.png)
+
+Delete terms:
+
+![Delete Term](./content/admin-guide/glossary-delete-term.png)
+
+### Reindexing
+
+StatGPT relies on different search strategies that require indexing dataset metadata. You can see each dataset's
+indexing status in the "Status" column. The following status options exist:
+
+1. `Queued` - Dataset is waiting in the queue for the indexing job to start.
+2. `In progress` - Indexing job is currently running.
+3. `Finished` - Dataset was successfully indexed.
+4. `Failed` - Dataset indexing job failed and requires either reconfiguration or a simple retry.
+
+You can run reindexing for a specific dataset in the channel:
+
+![Reindex Dataset](./content/admin-guide/reindex-dataset.png)
+
+You can also run reindexing for all datasets in the channel:
+
+![Reindex All Datasets](./content/admin-guide/reindex-all-datasets.png)
+
+### Import/Export & Jobs
+
+Import/Export functionality allows you to download and upload channel dumps with their configurations and
+indexes. When exporting or importing a channel, a dedicated job will be created. Jobs linked to the channel can be
+reviewed on the Jobs page, where related artifacts can also be downloaded.
+
+You can export a specific channel by clicking the "Export" button in the channel context menu.
+
+You can import a channel by clicking the "Import" button on the channels list page:
+
+![Import Channel](./content/admin-guide/channel-import.png)
+
+The import menu has the following toggles:
+
+1. `Remove channel with the same id` - If enabled, any existing channel with the same ID will be removed before
+   importing
+   the new one. If disabled, the import will fail if a channel with the same ID already exists.
+2. `Update datasets` - If enabled, datasets will be updated to the version in the import file. If disabled, existing
+   datasets will not be updated.
+3. `Update data sources` - If enabled, data sources will be updated to the version in the import file. If disabled,
+   existing data sources will not be updated.
+
+![Import Channel Menu](./content/admin-guide/channel-import-menu.png)
+
+After starting either import or export, a new job will appear in the corresponding channel's jobs list, which can be
+accessed by clicking the "Jobs" button in the channel menu:
+
+![Channel Jobs](./content/admin-guide/channel-jobs.png)
+
+The Jobs page allows you to review jobs related to the channel, their status, and download related artifacts:
+
+![Jobs Page](./content/admin-guide/channel-jobs-download.png)
