@@ -6,13 +6,13 @@ This document outlines the methodology for evaluating quality of transforming na
 
 ### Evaluation Approach
 
-- **End-to-End Evaluation:**  
+- **End-to-End Evaluation:**
   We evaluate the final set of indicators (and other dimension terms) selected by the system in response to a data query. This measures the quality of the system’s indicator selection, reflecting the user experience in real-world data exploration scenarios.
 
-- **Term Matching:**  
+- **Term Matching:**
   The evaluation checks if the selected terms (indicators, countries, etc.) match the target terms specified in the test case. Each term is defined by both its ID and name.
 
-- **Per-Dimension Analysis:**  
+- **Per-Dimension Analysis:**
   Terms are grouped by their dimension (e.g., INDICATOR, COUNTRY). Evaluation is performed separately for each dimension.
 
 ### Sample Test Case
@@ -43,34 +43,34 @@ conversation:
           name: Mexico
 ```
 
-This test case specifies that for the query "Could you give me the population numbers for Mexico?", the expected 
-indicators are "Population, Persons for countries / Index for country groups" (ID: LP) and the country is "Mexico" 
+This test case specifies that for the query "Could you give me the population numbers for Mexico?", the expected
+indicators are "Population, Persons for countries / Index for country groups" (ID: LP) and the country is "Mexico"
 (ID: MEX) from the IMF WEO dataset.
 
 ### Metrics
 
-- **True Positives (TP):**  
+- **True Positives (TP):**
   Terms that are present in both the system’s selection and the target set.
 
-- **False Positives (FP):**  
+- **False Positives (FP):**
   Terms selected by the system but not present in the target set.
 
-- **False Negatives (FN):**  
+- **False Negatives (FN):**
   Terms present in the target set but not selected by the system.
 
-- **Precision:**  
+- **Precision:**
   $$
   \text{Precision} = \frac{|\text{TP}|}{|\text{TP}| + |\text{FP}|}
   $$
   Measures the fraction of selected terms that are correct.
 
-- **Recall:**  
+- **Recall:**
   $$
   \text{Recall} = \frac{|\text{TP}|}{|\text{TP}| + |\text{FN}|}
   $$
   Measures the fraction of target terms that were successfully selected.
 
-- **Macro-Averaged Metrics:**  
+- **Macro-Averaged Metrics:**
   Precision and recall are computed for each dimension, then averaged across all dimensions to obtain macro precision and macro recall.
 
 ### Test Case Metrics
@@ -84,13 +84,13 @@ indicators are "Population, Persons for countries / Index for country groups" (I
 
 ### Excel Report
 
-- **Overview Sheet:**  
+- **Overview Sheet:**
   Each row corresponds to a single test case. Columns include:
   - `macro recall`: Macro-averaged recall across all dimensions
   - `macro precision`: Macro-averaged precision across all dimensions
   - `indicator selection details`: Detailed breakdown per dimension, including lists of true positives, false positives, and false negatives
 
-- **Details in Excel Cell:**  
+- **Details in Excel Cell:**
   For each dimension, the following format is used:
 
   ```
@@ -103,12 +103,12 @@ indicators are "Population, Persons for countries / Index for country groups" (I
     * GDP_CONST: gross domestic product constant prices
   ```
 
-- **Dimensions Not in Target:**  
+- **Dimensions Not in Target:**
   If the system selects terms for dimensions not present in the target, these are listed separately under "dimensions not in target".
 
 ### Dataset Metrics
 
-- **Aggregated Metrics:**  
+- **Aggregated Metrics:**
   Macro precision and recall are averaged over all test cases in the dataset and reported in the "Statistics" sheet under "Data Query Metrics".
 
 ### Example
@@ -124,7 +124,7 @@ Then:
 - False Positives: GDP_CONST
 - False Negatives: (none)
 
-Precision = 2 / (2 + 1) = 0.67  
+Precision = 2 / (2 + 1) = 0.67
 Recall = 2 / (2 + 0) = 1.0
 
 ### Notes

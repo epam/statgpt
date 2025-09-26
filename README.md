@@ -1,7 +1,7 @@
 # StatGPT
 
-**StatGPT** is an AI-driven Talk-To-Your-Data platform that enables users to interact with official statistics data 
-using natural language. It leverages large language models to provide most relevant data from statistical databases 
+**StatGPT** is an AI-driven Talk-To-Your-Data platform that enables users to interact with official statistics data
+using natural language. It leverages large language models to provide most relevant data from statistical databases
 through API and conversational interfaces.
 
 ## 🎯 What is StatGPT?
@@ -42,11 +42,11 @@ StatGPT bridges the gap between complex statistical databases and everyday users
 ### Source Repositories
 
 - [StatGPT Backend](https://github.com/epam/statgpt-backend) - Admin and Chat backend applications. Main logic and API.
-- [StatGPT Admin Frontend](https://github.com/epam/statgpt-admin-frontend) - Admin frontend application. UI for 
+- [StatGPT Admin Frontend](https://github.com/epam/statgpt-admin-frontend) - Admin frontend application. UI for
   managing StatGPT configurations.
-- [StatGPT Portal Frontend](https://github.com/epam/statgpt-portal-frontend) - UI Library for building custom StatGPT 
+- [StatGPT Portal Frontend](https://github.com/epam/statgpt-portal-frontend) - UI Library for building custom StatGPT
   Portal applications.
-- [StatGPT Global Trusted Data Commons](https://github.com/epam/statgpt-global-trusted-data-commons) - implementation 
+- [StatGPT Global Trusted Data Commons](https://github.com/epam/statgpt-global-trusted-data-commons) - implementation
   of StatGPT Portal for Global Trusted Data Commons initiative.
 
 ## 🔗 AI DIAL Platform
