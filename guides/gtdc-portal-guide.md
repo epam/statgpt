@@ -2,12 +2,13 @@
 
 ## Overview
 
-The GTDC Portal is an intelligent agent specializing in statistics, economics, and the SDMX standard.
+GTDC Portal is the StatGPT Portal implementation for Global Trusted Data Commons. It serves as UI for StatGPT - an intelligent agent specializing in statistics, economics, and the SDMX standard.
 
 ## Table of Contents
 
 - [Getting Started](#getting-started)
 - [Interface Components](#interface-components)
+- [Detailed Component Descriptions](#detailed-component-descriptions)
     - [Block 1: Start New Chat](#block-1-start-new-chat)
     - [Block 2: Search](#block-2-search)
     - [Block 3: Dialogue List/History](#block-3-dialogue-listhistory)
@@ -18,6 +19,8 @@ The GTDC Portal is an intelligent agent specializing in statistics, economics, a
     - [Example Queries](#example-queries)
     - [Page Elements](#page-elements)
 - [Advanced View](#advanced-view)
+    - [Example: Multiple Dataset Options](#example-multiple-dataset-options)
+    - [Working with Advanced View Filters](#working-with-advanced-view-filters)
 
 ## Getting Started
 
