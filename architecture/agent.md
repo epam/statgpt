@@ -35,4 +35,3 @@ History of the agent consists of two blocks: **static** and **dynamic**.
 ![History example](./content/history_example.svg)
 
 ![Dynamic history block](./content/dynamic_history_block.svg)
-

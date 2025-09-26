@@ -54,7 +54,7 @@ detailing their roles, interactions, and technical implementations.
 **Core Frameworks**:
 
 | Framework                                                    | Purpose                                     |
-|--------------------------------------------------------------|---------------------------------------------|  
+|--------------------------------------------------------------|---------------------------------------------|
 | [FastAPI](https://fastapi.tiangolo.com/)                     | Web framework for API development           |
 | [SQLAlchemy](https://www.sqlalchemy.org/)                    | ORM for database operations                 |
 | [LangChain](https://python.langchain.com/docs/introduction/) | LLM application framework                   |
@@ -85,7 +85,7 @@ with [DIAL API Specification](https://dialx.ai/dial_api#operation/sendChatComple
 #### Dependencies
 
 | Service                   | Purpose                                              |
-|---------------------------|------------------------------------------------------|  
+|---------------------------|------------------------------------------------------|
 | **AI DIAL**               | Platform services and model access                   |
 | **PostgreSQL + pgvector** | Data storage and vector operations                   |
 | **ElasticSearch**         | Search and indexing                                  |
@@ -101,7 +101,7 @@ with [DIAL API Specification](https://dialx.ai/dial_api#operation/sendChatComple
 **Core Frameworks**:
 
 | Framework                                            | Purpose                            |
-|------------------------------------------------------|------------------------------------|  
+|------------------------------------------------------|------------------------------------|
 | [FastAPI](https://fastapi.tiangolo.com/)             | Web framework for API development  |
 | [SQLAlchemy](https://www.sqlalchemy.org/)            | ORM for database operations        |
 | [Alembic](https://alembic.sqlalchemy.org/en/latest/) | Database migration management      |
@@ -133,7 +133,7 @@ with [DIAL API Specification](https://dialx.ai/dial_api#operation/sendChatComple
 #### Dependencies
 
 | Service                   | Purpose                                     |
-|---------------------------|---------------------------------------------|  
+|---------------------------|---------------------------------------------|
 | **PostgreSQL + pgvector** | Configuration and metadata storage          |
 | **SDMX Providers**        | Dataset sources (IMF, World Bank, Eurostat) |
 | **Identity Provider**     | Authentication (Azure Entra ID, Keycloak)   |
@@ -149,7 +149,7 @@ with [DIAL API Specification](https://dialx.ai/dial_api#operation/sendChatComple
 **Frameworks & Libraries**:
 
 | Technology                                    | Purpose                     |
-|-----------------------------------------------|-----------------------------|  
+|-----------------------------------------------|-----------------------------|
 | [React](https://react.dev/)                   | UI component framework      |
 | [Next.js](https://nextjs.org/)                | React application framework |
 | [NextAuth.js](https://next-auth.js.org/)      | Authentication management   |
@@ -179,7 +179,7 @@ with [DIAL API Specification](https://dialx.ai/dial_api#operation/sendChatComple
 #### Dependencies
 
 | Service                   | Purpose                          |
-|---------------------------|----------------------------------|  
+|---------------------------|----------------------------------|
 | **StatGPT Admin Backend** | API services and data management |
 | **Identity Provider**     | User authentication              |
 
@@ -192,7 +192,7 @@ with [DIAL API Specification](https://dialx.ai/dial_api#operation/sendChatComple
 **Frameworks & Libraries**:
 
 | Technology                                    | Purpose                     |
-|-----------------------------------------------|-----------------------------|  
+|-----------------------------------------------|-----------------------------|
 | [React](https://react.dev/)                   | UI component framework      |
 | [Next.js](https://nextjs.org/)                | React application framework |
 | [NextAuth.js](https://next-auth.js.org/)      | Authentication management   |
@@ -225,9 +225,8 @@ with [DIAL API Specification](https://dialx.ai/dial_api#operation/sendChatComple
 #### Dependencies
 
 | Service                  | Purpose                                               |
-|--------------------------|-------------------------------------------------------|  
+|--------------------------|-------------------------------------------------------|
 | **DIAL Platform**        | Authentication, rate limits, file storage, API access |
 | **StatGPT Chat Backend** | Core chat and data query services                     |
 | **Identity Provider**    | User authentication and SSO                           |
 | **SDMX Providers**       | Direct metadata and data queries                      |
-

@@ -59,7 +59,7 @@ Utility tools for various purposes
 | **Last Updated** | Update timestamp    | SDMX annotations or admin configuration |
 | **URL**          | Portal page link    | Admin configuration                     |
 
-**Output Format**: Markdown list  
+**Output Format**: Markdown list
 **Access Control**: Availability query determines user access
 
 ### Data Query
@@ -124,7 +124,7 @@ Returns:
 
 **Function**: Queries publications using Retrieval Augmented Generation.
 
-**Input**: Natural language query  
+**Input**: Natural language query
 **Architecture**: Connects to external RAG application
 
 **Processing Stages**:
@@ -159,13 +159,13 @@ Returns:
 
 ### Glossary Terms and Definitions
 
-**Configuration**: Admin-managed via CRUD API  
+**Configuration**: Admin-managed via CRUD API
 **Storage**: Database with channel-specific glossaries
 
 **Metadata Structure**:
 
 | Field          | Description           | Example                     |
-|----------------|-----------------------|-----------------------------|  
+|----------------|-----------------------|-----------------------------|
 | **Term**       | The terminology entry | "GDP"                       |
 | **Definition** | Official definition   | "Gross Domestic Product..." |
 | **Domain**     | Subject area          | "Economics", "Statistics"   |
@@ -173,14 +173,14 @@ Returns:
 
 #### Glossary Terms Tool
 
-**Function**: Lists available terms with metadata (excluding definitions)  
-**Arguments**: None  
+**Function**: Lists available terms with metadata (excluding definitions)
+**Arguments**: None
 **Output**: Markdown list of terms with metadata
 
 #### Glossary Definitions Tool
 
-**Function**: Retrieves definitions for specified terms  
-**Arguments**: Array of glossary terms  
+**Function**: Retrieves definitions for specified terms
+**Arguments**: Array of glossary terms
 **Output**: Markdown-formatted definitions with metadata
 
 **Use Case**: Enables agencies to standardize terminology for both LLM context and user reference.
