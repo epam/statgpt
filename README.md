@@ -24,6 +24,7 @@ StatGPT bridges the gap between complex statistical databases and everyday users
 
 ### Guides
 - [Admin Guide](./guides/admin-guide.md) - System administration and configuration
+- [GTDC Portal Guide](./guides/gtdc-portal-guide.md) - Instructions for using the GTDC (Global Trusted Data Commons) Portal.
 
 ### Development
 - [Contributing](./CONTRIBUTING.md) - Contribution guidelines
