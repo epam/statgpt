@@ -73,7 +73,8 @@ Stateless services design enables horizontal scaling to handle varying loads eff
 ### Architecture Diagrams
 
 - [`agent_high_level.svg`](./content/agent_high_level.svg) - High-level agent architecture
-- [`services.svg`](./content/services.svg) - Services and dependencies overview
+- [`architecture_high_level.svg`](content/architecture_high_level.svg) - High-level services architecture
+- [`architecture_detailed.svg`](./content/architecture_detailed.svg) - Detailed architecture diagram
 - [`dynamic_history_block.svg`](./content/dynamic_history_block.svg) - History management approach
 - [`history_example.svg`](./content/history_example.svg) - Example conversation flow
 

@@ -3,9 +3,13 @@
 This document provides a comprehensive overview of the core services and dependencies in the StatGPT architecture,
 detailing their roles, interactions, and technical implementations.
 
-## 🗺️ Architecture Diagram
+## 🗺️ High-Level Architecture
 
-![StatGPT Services & Dependencies Diagram](./content/services.svg)
+![StatGPT Services & Dependencies Diagram](content/architecture_high_level.svg)
+
+## Detailed Architecture
+
+![StatGPT Detailed Architecture Diagram](./content/architecture_detailed.svg)
 
 ## 🔗 Third-Party Dependencies
 
