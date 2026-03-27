@@ -24,7 +24,8 @@ StatGPT bridges the gap between complex statistical databases and everyday users
 
 ### Guides
 - [Admin Guide](./guides/admin-guide.md) - System administration and configuration
-- [GTDC Portal Guide](./guides/gtdc-portal-guide.md) - Instructions for using the GTDC (Global Trusted Data Commons) Portal.
+- [GTDC Portal Guide](./guides/gtdc-portal-guide.md) - Instructions for using the GTDC (Global Trusted Data Commons) Portal
+- [StatGPT Admin Azure Auth Guide](./guides/admin-azure-auth-guide.md) - Entra ID auth for StatGPT Admin Frontend and StatGPT Admin Backend
 
 ### Development
 - [Contributing](./CONTRIBUTING.md) - Contribution guidelines
@@ -35,9 +36,9 @@ StatGPT bridges the gap between complex statistical databases and everyday users
 
 ### Deployment
 
-- [StatGPT Helm Chart](https://github.com/epam/statgpt-helm) - Helm chart for deploying StatGPT on Kubernetes.
+- [StatGPT Helm Chart](https://github.com/epam/statgpt-helm) - Helm chart for deploying StatGPT on Kubernetes
 - [Generic Installation](https://github.com/epam/statgpt-helm/tree/main/charts/statgpt/examples/generic)
-- [Azure Installation](https://github.com/epam/statgpt-helm/tree/main/charts/statgpt/examples/azure)
+- [Azure Installation](https://github.com/epam/statgpt-helm/tree/main/charts/statgpt/examples/azure). For Entra ID auth (StatGPT Admin FE & BE), see [StatGPT Admin Azure Auth Guide](./guides/admin-azure-auth-guide.md)
 
 ### Source Repositories
 
