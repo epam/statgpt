@@ -149,7 +149,6 @@ indicatorDimensionsRequiredForQuery: # indicator dimension that required to be f
 indexer: # indexer configuration for the dataset
   indicator:
     unpack: true  # whether to unpack the indicator dimensions (e.g. in WEO packed indicators are used, therefore unpack=true)
-    use_code_list_description: false  # whether to use code list description for indexing
   description: *weo_description  # description to use for indexing
 ```
 
