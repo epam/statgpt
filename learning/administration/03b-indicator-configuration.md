@@ -16,27 +16,30 @@
 
 Once you've identified all INDICATOR dimensions, decide which are **required**:
 
-- **Required** (`isRequired: true`) — The user's query must specify a filter for at least one
-  required indicator dimension. Queries without any required indicator dimension filter are rejected.
-- **Optional** (no `isRequired`, or `isRequired: false`) — The dimension is optional;
-  queries can proceed without filtering on it.
+- **Required** (`isRequired: true`) — Filtering by this dimension alone is enough to trigger
+  a query against this dataset.
+- **Optional** (no `isRequired`, or `isRequired: false`) — The dimension provides supplementary
+  context, not sufficient on its own to trigger a query.
+
+A dataset query is **only executed** when the user's query filters on at least one of the dataset's
+required dimensions. Queries that don't match any required dimension are skipped.
 
 ### The Decision Question
 
-> *"If the user doesn't specify this dimension, can the system still return a meaningful answer?"*
+> *"If the user's query specifies a filter for this dimension, should it be enough to trigger a query against this dataset?"*
 >
-> **Yes** → optional. **No** → required.
+> **Yes** → required. **No** → optional.
 
-### Required — Without It, the Query Is Meaningless
+### Required — Filtering by This Dimension Produces a Sensible Query
 
-- WEO `INDICATOR` — *"What is [something] for Germany?"* has no meaning without specifying what indicator. Required.
-- CPI `INDEX_TYPE` + `COICOP_1999` — without specifying CPI vs. HICP **and** a product category, *"What is inflation?"*
-  is too vague. Both required.
+- WEO: `INDICATOR` — *"What is [something] for Germany?"* filters on `INDICATOR`, and that alone is enough to query WEO. Required.
+- CPI: `INDEX_TYPE` + `COICOP_1999` — filtering by either CPI vs. HICP or a product category is enough
+  to trigger a query against this dataset. Both required.
 
-### Optional — Without It, the System Returns Useful (but Less Specific) Data
+### Optional — This Dimension Is Supplementary, Not Sufficient on Its Own
 
-- CPI `TYPE_OF_TRANSFORMATION` — if not specified, the system returns "Index" by default. The answer is still
-  meaningful, just with a default transformation. Optional.
+- CPI `TYPE_OF_TRANSFORMATION` — filtering only by transformation type
+  should not be enough to trigger a query against this dataset. Optional.
 - ECB BSI `ADJUSTMENT` — seasonal adjustment is a refinement, not essential for returning meaningful data. Optional.
 
 ### Rules

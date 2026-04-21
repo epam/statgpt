@@ -52,14 +52,16 @@ See [Module 03b](03b-indicator-configuration.md#packed-vs-unpacked-indicators).
 
 ## Required vs. Optional Indicator Dimensions
 
-> *"If the user doesn't specify this dimension, can the system still return a meaningful answer?"*
+> *"If the user's query specifies a filter for this dimension, should it be enough to trigger a query against this dataset?"*
 
 | Answer | Classification |
 |---|---|
-| **No** — the query is meaningless without it | Required (`isRequired: true` on the dimension) |
-| **Yes** — system can apply a sensible default | Optional (no `isRequired`, or `isRequired: false`) |
+| **Yes** — filtering by this dimension alone produces a sensible query | Required (`isRequired: true`) |
+| **No** — this dimension is supplementary, not sufficient on its own | Optional (`isRequired: false` or omitted) |
 
-**Rule:** Every dataset must have at least one required indicator dimension.
+A dataset query is **only executed** when the user's query filters on at least one of the dataset's required dimensions. Queries that don't match any required dimension are skipped.
+
+**Rules:** Only INDICATOR dimensions can be marked required. Every dataset must have at least one required indicator dimension.
 
 See [Module 03b](03b-indicator-configuration.md#required-vs-optional-indicator-dimensions).
 

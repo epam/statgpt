@@ -67,8 +67,8 @@ citation:
 
 ```
 Source dataflow has a meaningful description?
-├── Yes → citation.description: null (fetched from source on each access)
-│         indexer.description: copy the source description verbatim
+├── Yes → set `citation.description: null` (this will fetch the description from the source on each access)
+│         `indexer.description`: do not set to `null`, copy the source description verbatim
 └── No / Missing / Vague →
           Write a custom description
           citation.description: &anchor > "Your description..."
@@ -78,7 +78,8 @@ Source dataflow has a meaningful description?
 **Key rules:**
 - Citation and indexer description decisions are **independent** — citation controls user-facing attribution, indexer controls what gets searched
 - Both paths must result in a **non-empty `indexer.description`**
-- When `citation.description: null`, write `indexer.description` independently — do NOT use a YAML anchor pointing to the null citation description (the anchor resolves to `null`, making indexer description empty)
+- When `citation.description: null`, do NOT use a YAML anchor pointing to the null citation description
+  (the anchor resolves to `null`, making indexer description empty)
 - When you write a custom citation description, use a YAML anchor (e.g., `&weo_description`) so you can reuse the same text in `indexer.description`
 
 > **Multi-agency datasets:** For datasets that aggregate data from multiple providers, `citation` supports additional
