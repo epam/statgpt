@@ -167,14 +167,12 @@ pinnedColumns:
 indexer:
   indicator:
     unpack: true
-    useCodeListDescription: true
   description: *eer_description
 ```
 
 **Key decisions documented:**
 - `version: "latest"` — always tracks the current published EER version
 - `unpack: true` — packed multi-concept values combining exchange rate type, index specification, and adjustment method
-- `useCodeListDescription: true` — following IMF dataset pattern
 - `isOfficial: false` — IMF is international, not national
 - `allValues` on COUNTRY — enables star-queries like "exchange rates for all countries"
 - `updatedAt` — checks three sources in order for the last-updated date
@@ -327,7 +325,6 @@ Run each test case 2-3 times in the chat interface:
 If test 2 consistently returns NEER instead of REER for depreciation queries, consider:
 - Is the `indexer.description` clear enough about what the dataset contains?
 - Would adding more detail to the description help disambiguation between REER and NEER?
-- Is `useCodeListDescription: true` providing enough search context?
 - Would the `unpack: true` setting improve or degrade search for these multi-concept indicator names?
 
 Adjust configuration → reindex → retest until results are satisfactory.

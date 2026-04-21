@@ -56,7 +56,6 @@ These fields are **indexing-relevant** — changing them alters the search index
 | `subtype` on NON_INDICATOR | Changing REGION ↔ FREQUENCY | Hash changes → `NEEDS_REINDEX` |
 | `indexer.description` | Updating the dataset description for search | Hash changes → `NEEDS_REINDEX` |
 | `indexer.indicator.unpack` | Switching packed ↔ unpacked | Hash changes → `NEEDS_REINDEX` |
-| `indexer.indicator.useCodeListDescription` | Toggling code list descriptions (reserved — not yet implemented) | Hash changes → `NEEDS_REINDEX` |
 | `indexer.indicator.superPrimary` | Switching primary concatenation from 1 to 3 dimensions | Hash changes → `NEEDS_REINDEX` |
 | `indexer.indicator.annotations` | Adding or modifying indicator annotation config | Hash changes → `NEEDS_REINDEX` |
 | Upstream code list items changed | Provider added/renamed/removed indicators | Detected by [auto-update](#auto-update) |
@@ -185,7 +184,6 @@ Indexing uses LLM tokens for embedding generation:
 
 **Cost factors:**
 - Number of code list items across all indicator dimensions
-- Whether `useCodeListDescription: true` (includes longer text per item)
 - Whether `unpack: true` (may increase the number of indexed items for packed indicators)
 - Reindexing the entire channel multiplies the cost by the number of datasets
 

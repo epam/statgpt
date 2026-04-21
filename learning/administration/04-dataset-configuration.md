@@ -245,14 +245,12 @@ Controls how the dataset is indexed for semantic and keyword search:
 indexer:
   indicator:
     unpack: true                   # true for packed indicators, false for unpacked
-    useCodeListDescription: false  # Use code list descriptions during indexing
   description: *weo_description    # Dataset description for indexing (must be non-empty)
 ```
 
 | Field | Description |
 |-------|-------------|
 | `indicator.unpack` | `true` for packed indicators (comma-separated multi-concept values like "GDP, current prices, USD"). `false` for unpacked. See [Module 03b](03b-indicator-configuration.md#packed-vs-unpacked-indicators). |
-| `indicator.useCodeListDescription` | `true` to include code list item descriptions in the index. Improves search when descriptions are meaningful. |
 | `indicator.superPrimary` | Advanced. Default `false`. When `true` (only applies when `unpack: false`), the primary indicator label is concatenated from the first 3 indicator dimensions instead of just the first one. |
 | `indicator.annotations` | Advanced. Optional object with a `description` field specifying an SDMX annotation name to use as the indicator description in the index. |
 | `description` | **Must be a non-empty string.** If citation description is `null`, copy the dataflow description from the source metadata here. If you wrote a custom citation description, reference it with a YAML anchor (`*weo_description`). |
@@ -330,7 +328,6 @@ pinnedColumns:
 indexer:
   indicator:
     unpack: true                       # Packed indicators: "GDP, current prices, Percent change"
-    useCodeListDescription: true
   description: *weo_description        # Reuse citation description via YAML anchor
 ```
 
@@ -408,7 +405,6 @@ pinnedColumns:
 indexer:
   indicator:
     unpack: true
-    useCodeListDescription: true
   description: *bop_description
 ```
 
@@ -459,7 +455,6 @@ pinnedColumns:
 indexer:
   indicator:
     unpack: false                      # Unpacked: each value is a single concept
-    useCodeListDescription: false
   description: >                       # Custom indexer description (since citation desc is null)
     National accounts indicator (ESA 2010) - a coherent and consistent set of
     macroeconomic indicators, which provide an overall picture of the economic
@@ -699,7 +694,6 @@ pinnedColumns:
 indexer:
   indicator:
     unpack: false                          # Single-concept values
-    useCodeListDescription: false
   description: >                           # Independent copy (citation is null)
     Employment indicators by economic activity, covering employment levels,
     unemployment rates, and labour force participation across OECD countries
@@ -755,7 +749,6 @@ pinnedColumns:
 indexer:
   indicator:
     unpack: false
-    useCodeListDescription: false
   description: *cpi_desc
 ```
 

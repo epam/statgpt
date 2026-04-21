@@ -126,7 +126,6 @@ includeAttributes:                         # SDMX attributes for agent context
 indexer:
   indicator:
     unpack: false                          # true for packed indicators
-    useCodeListDescription: false          # true if code list descriptions are meaningful
   description: *ds_description             # Must be non-empty
 ```
 
@@ -152,8 +151,6 @@ See [Module 04](04-dataset-configuration.md) for field-by-field details.
 
 - [ ] At least one indicator dimension has `isRequired: true`
 - [ ] Packed/unpacked determined; `unpack` set correctly
-- [ ] `useCodeListDescription` set based on code list quality
-
 ### Phase 4: Dataset Configuration ([Module 04](04-dataset-configuration.md))
 
 - [ ] All YAML fields filled (citation, dimensions, pinnedColumns, indexer)

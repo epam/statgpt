@@ -6,7 +6,6 @@
 
 - The concept of required vs. optional indicator dimensions
 - The difference between packed and unpacked indicators and the `unpack` indexer setting
-- The `useCodeListDescription` indexer setting
 - Concrete examples from IMF, Eurostat, ECB, BIS, and other agencies
 - How to apply these concepts in practice through exercises
 
@@ -169,24 +168,6 @@ Compare with WEO's `"Gross domestic product, constant prices, Percent change"` �
 **Result:** ER uses `unpack: false`. The config confirms this with the comment `# No need to unpack`.
 
 **Rule of thumb:** If the comma is part of natural English phrasing describing one thing, it's not packed. If the comma separates independent concepts that could each be a separate dimension, it's packed.
-
----
-
-## The `useCodeListDescription` Setting
-
-You'll see `useCodeListDescription` in indexer configurations alongside `unpack`:
-
-- **What it does:** When set to `true`, the indexer includes code list item *descriptions* (not just names) in the search index. This gives the semantic and keyword search more text to match against.
-- **When to use it:** Currently set to `true` in all IMF dataset configurations. Follow this pattern for new datasets when the provider includes meaningful descriptions in their code lists.
-- **Distinct from `indexer.description`:** The `indexer.description` field describes the *entire dataset* (used for dataset selection). `useCodeListDescription` controls whether *individual code list item descriptions* are included in the indicator search index.
-
-```yaml
-indexer:
-  description: "Dataset-level description used for dataset selection"  # indexer.description
-  indicator:
-    unpack: true
-    useCodeListDescription: true  # includes code list item descriptions in the search index
-```
 
 ---
 
@@ -537,7 +518,6 @@ values, not just the dimension ID.
 - Packed indicators combine multiple concepts in comma-separated values → set `unpack: true`
 - Unpacked indicators have single-concept values across multiple dimensions → set `unpack: false`
 - Commas in natural English descriptions (e.g., "exchange rate, period average") do not indicate packing
-- Use `useCodeListDescription: true` when the provider includes meaningful code list descriptions
 
 ---
 
@@ -621,7 +601,6 @@ Compare with the ECB BSI exercise: BSI's values like "Loans" and "Outstanding am
 indexer:
   indicator:
     unpack: true
-    useCodeListDescription: true
 ```
 
 </details>
