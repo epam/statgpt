@@ -78,7 +78,7 @@ urn:                                       # Pre-filled from wizard
 citation:
   provider: AGENCY.DEPT                    # Data provider
   url: https://...                         # Link to dataset page
-  description: &ds_description >           # Use null if source has good description
+  description: >                           # Use null if source has good description
     Dataset description text...
 
 # --- Flags ---
@@ -126,7 +126,6 @@ includeAttributes:                         # SDMX attributes for agent context
 indexer:
   indicator:
     unpack: false                          # true for packed indicators
-  description: *ds_description             # Must be non-empty
 ```
 
 See [Module 04](04-dataset-configuration.md) for field-by-field details.
@@ -154,7 +153,6 @@ See [Module 04](04-dataset-configuration.md) for field-by-field details.
 ### Phase 4: Dataset Configuration ([Module 04](04-dataset-configuration.md))
 
 - [ ] All YAML fields filled (citation, dimensions, pinnedColumns, indexer)
-- [ ] `indexer.description` is non-empty
 - [ ] `pinnedColumns` ordered least → most important, correct `_Name` casing
 
 ### Phase 5: Data Source & Channel ([Module 05](05-data-sources-and-channels.md))

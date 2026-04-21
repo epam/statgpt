@@ -447,9 +447,10 @@ Your channel already has **IMF WEO** (World Economic Outlook) onboarded. A stake
 - WEO has forecasts that ANEA doesn't
 - Overlap exists for headline GDP figures, but ANEA provides more detailed decomposition
 
-**Recommendation:** Onboard ANEA. Document the overlap in both dataset descriptions so the agent can select the right
-dataset based on query specificity. Use clear `indexer.description` values: WEO for "broad macroeconomic indicators and
-forecasts", ANEA for "detailed national accounts components and breakdowns".
+**Recommendation:** Onboard ANEA. Document the overlap in both dataset descriptions
+so the agent can select the right dataset based on query specificity. For example,
+WEO: "provides broad macroeconomic indicators and forecasts",
+ANEA: "provides detailed national accounts components and breakdowns".
 
 </details>
 

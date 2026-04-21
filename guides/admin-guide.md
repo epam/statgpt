@@ -108,7 +108,7 @@ urn: IMF.RES:WEO(6.0.0)  # SDMX urn of the dataset
 citation: # citation for the dataset
   url: https://data.imf.org/en/datasets/IMF.RES:WEO  # URL to the dataset web page
   provider: IMF.RES  # data provider
-  description: &weo_description >  # detailed description of the dataset
+  description: >  # detailed description of the dataset
     The World Economic Outlook (WEO) database contains selected macroeconomic
     data series from the statistical appendix of the World Economic Outlook
     report, which presents the IMF staff's analysis and projections of economic
@@ -149,7 +149,6 @@ indicatorDimensionsRequiredForQuery: # indicator dimension that required to be f
 indexer: # indexer configuration for the dataset
   indicator:
     unpack: true  # whether to unpack the indicator dimensions (e.g. in WEO packed indicators are used, therefore unpack=true)
-  description: *weo_description  # description to use for indexing
 ```
 
 Once the dataset is created, you can edit its details by clicking the "Edit" button in the datasets section. This is
