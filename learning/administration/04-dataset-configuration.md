@@ -57,7 +57,7 @@ Tells users where the data comes from:
 citation:
   provider: IMF.RES                                       # Data provider name or ID
   url: https://data.imf.org/en/datasets/IMF.RES:WEO      # Link to the dataset's web page
-  description: &weo_description >                          # Description of the dataset
+  description: >                                          # Description of the dataset
     The World Economic Outlook (WEO) database contains selected macroeconomic
     data series from the statistical appendix of the World Economic Outlook
     report...
@@ -67,19 +67,9 @@ citation:
 
 ```
 Source dataflow has a meaningful description?
-├── Yes → citation.description: null (fetched from source on each access)
-│         indexer.description: copy the source description verbatim
-└── No / Missing / Vague →
-          Write a custom description
-          citation.description: &anchor > "Your description..."
-          indexer.description: *anchor (reuse via YAML anchor)
+├── Yes → set `citation.description: null` (this will fetch the description from the source on each access)
+└── No / Missing / Vague → write a custom description as a string
 ```
-
-**Key rules:**
-- Citation and indexer description decisions are **independent** — citation controls user-facing attribution, indexer controls what gets searched
-- Both paths must result in a **non-empty `indexer.description`**
-- When `citation.description: null`, write `indexer.description` independently — do NOT use a YAML anchor pointing to the null citation description (the anchor resolves to `null`, making indexer description empty)
-- When you write a custom citation description, use a YAML anchor (e.g., `&weo_description`) so you can reuse the same text in `indexer.description`
 
 > **Multi-agency datasets:** For datasets that aggregate data from multiple providers, `citation` supports additional
 > fields: `providerTemplate` (a template string with `{n_agencies}` and `{agencies_sample}` placeholders) and
@@ -244,17 +234,13 @@ Controls how the dataset is indexed for semantic and keyword search:
 indexer:
   indicator:
     unpack: true                   # true for packed indicators, false for unpacked
-    useCodeListDescription: false  # Use code list descriptions during indexing
-  description: *weo_description    # Dataset description for indexing (must be non-empty)
 ```
 
 | Field | Description |
 |-------|-------------|
 | `indicator.unpack` | `true` for packed indicators (comma-separated multi-concept values like "GDP, current prices, USD"). `false` for unpacked. See [Module 03b](03b-indicator-configuration.md#packed-vs-unpacked-indicators). |
-| `indicator.useCodeListDescription` | `true` to include code list item descriptions in the index. Improves search when descriptions are meaningful. |
 | `indicator.superPrimary` | Advanced. Default `false`. When `true` (only applies when `unpack: false`), the primary indicator label is concatenated from the first 3 indicator dimensions instead of just the first one. |
 | `indicator.annotations` | Advanced. Optional object with a `description` field specifying an SDMX annotation name to use as the indicator description in the index. |
-| `description` | **Must be a non-empty string.** If citation description is `null`, copy the dataflow description from the source metadata here. If you wrote a custom citation description, reference it with a YAML anchor (`*weo_description`). |
 
 > **Indexing-relevant vs. display-only fields:** Some fields affect the search index and require reindexing when
 > changed: `dimensionType`, `alias`, `virtual`, `processorId`, `subtype`, and all `indexer.*` fields. Others are
@@ -274,7 +260,7 @@ urn:
 citation:
   url: https://data.imf.org/en/datasets/IMF.RES:WEO
   provider: IMF.RES
-  description: &weo_description >
+  description: >
     The World Economic Outlook (WEO) database contains selected macroeconomic
     data series from the statistical appendix of the World Economic Outlook
     report, which presents the IMF staff's analysis and projections of economic
@@ -329,8 +315,6 @@ pinnedColumns:
 indexer:
   indicator:
     unpack: true                       # Packed indicators: "GDP, current prices, Percent change"
-    useCodeListDescription: true
-  description: *weo_description        # Reuse citation description via YAML anchor
 ```
 
 **Key decisions:**
@@ -338,7 +322,6 @@ indexer:
 - `unpack: true` — WEO indicator values pack multiple concepts into one string
 - Single indicator dimension, marked as required
 - `isOfficial: false` — IMF is an international organization
-- Description uses a YAML anchor so it can be shared between `citation` and `indexer`
 - `allValues` on COUNTRY enables star-queries like "global GDP"
 - `updatedAt` checks three sources in order for the last-updated date
 
@@ -354,7 +337,7 @@ urn:
 citation:
   url: https://data.imf.org/en/datasets/IMF.STA:BOP
   provider: IMF.STA
-  description: &bop_description >
+  description: >
     The Balance of Payments (BOP) is a statistical statement that summarizes
     transactions between residents and nonresidents during a period. It consists
     of the goods and services account, the primary income account, the secondary
@@ -407,8 +390,6 @@ pinnedColumns:
 indexer:
   indicator:
     unpack: true
-    useCodeListDescription: true
-  description: *bop_description
 ```
 
 **Key differences from WEO:**
@@ -458,18 +439,12 @@ pinnedColumns:
 indexer:
   indicator:
     unpack: false                      # Unpacked: each value is a single concept
-    useCodeListDescription: false
-  description: >                       # Custom indexer description (since citation desc is null)
-    National accounts indicator (ESA 2010) - a coherent and consistent set of
-    macroeconomic indicators, which provide an overall picture of the economic
-    situation and are widely used for economic analysis and forecasting, policy
-    design and policy making
 ```
 
 **Key contrasts with IMF datasets:**
 - **Lowercase dimension IDs** (`na_item`, `unit`, `geo`, `freq`) — Eurostat convention
 - **`unit` is INDICATOR** with `dimensionType: "INDICATOR"` — its values describe measurement methodology (e.g., "Chain linked volumes"), not simple currencies
-- **`citation.description: null`** — the source metadata is good, so StatGPT fetches it directly. But `indexer.description` must still be non-empty, so a custom description is provided there
+- **`citation.description: null`** — the source metadata is good, so StatGPT fetches it directly on each access
 - **`unpack: false`** — each indicator value is a single concept
 - **`useTitleFromSrc: false`** — a custom title is used for clarity
 - **Fixed date range** in default queries instead of relative expressions
@@ -527,8 +502,6 @@ The virtual dimension is configured directly in the `dimensions` map alongside a
 | No required indicator dimensions | Validation fails | At least one INDICATOR dimension must have `isRequired: true` |
 | Wrong pinned column order | Data table is hard to read | Order from least to most important; main indicator should be last |
 | Incorrect `_Name` suffix casing in pinnedColumns | Column not shown in output | Match exact dimension ID + `_Name` (case-sensitive: `freq_Name` not `FREQ_Name`) |
-| Empty `indexer.description` | Indexing fails | Must be a non-empty string — copy from source or write custom |
-| `citation.description: null` but also `indexer.description` referencing it | Empty indexer description | When citation is null, write the indexer description independently |
 | Missing `dimensionType` on a dimension | Dimension not processed correctly | Every dimension in the `dimensions` map must have a `dimensionType` |
 | Forgetting a dimension | Queries miss relevant data or fail | Ensure all dimensions from the DSD are accounted for in the `dimensions` map |
 | Country dimension `alias` doesn't match channel's `countryNamedEntityType` | Country recognition fails | Use the same string as the channel's country named entity type |
@@ -541,10 +514,9 @@ The virtual dimension is configured directly in the `dimensions` map alongside a
 - The URN is selected from a table; everything else you fill in manually
 - The `dimensions` map is the core of the config — each dimension gets a `dimensionType` and optional settings like `isRequired`, `subtype`, `alias`, `defaultQueries`
 - Key decisions per dataset: which dimensions are INDICATOR, which are required, packed vs. unpacked, description source
-- Use the `citation.description` / `indexer.description` anchor pattern to avoid duplicating text
 - Different agencies use different naming conventions — `alias` on the country dimension and consistent values unify them
 - Virtual dimensions enable single-country datasets to participate in country-based queries — configured inline via the `virtual` field
-- Always validate: at least one required indicator dimension (`isRequired: true`), non-empty indexer description, correct column casing
+- Always validate: at least one required indicator dimension (`isRequired: true`), correct column casing
 - SPECIAL dimensions enable LLM-powered search for large hierarchical classifications (NACE, ISIC, KVED) — set `dimensionType: "SPECIAL"` with `processorId`
 - Default queries (`defaultQueries`) are set directly on each dimension, not in a separate top-level field
 
@@ -552,12 +524,12 @@ The virtual dimension is configured directly in the `dimensions` map alongside a
 
 ## Check Your Understanding
 
-**1. A dataset's source metadata has a meaningful description. What do you set for `citation.description` and `indexer.description`?**
+**1. A dataset's source metadata has a meaningful description. What do you set for `citation.description`?**
 
 <details>
 <summary>Answer</summary>
 
-`citation.description: null` — StatGPT fetches it from the source on each access. `indexer.description:` copy the source description text verbatim (write it independently, don't use a YAML anchor pointing to the null citation).
+`citation.description: null` — StatGPT fetches it from the source on each access.
 </details>
 
 **2. You configure `pinnedColumns` as `["INDICATOR_Name", "COUNTRY_Name", "FREQUENCY_Name"]`. What's wrong?**
@@ -576,15 +548,7 @@ Order is least→most important (left to right), with the main indicator last. S
 `unpack: true` — the values are comma-separated multi-concept strings packing what is measured ("Exports of goods and services") with a unit ("Percent of GDP").
 </details>
 
-**4. You set `citation.description: null` and `indexer.description: *some_anchor`. What happens?**
-
-<details>
-<summary>Answer</summary>
-
-The YAML anchor resolves to `null`, making `indexer.description` empty. Indexing will fail because `indexer.description` must be a non-empty string. When citation is null, write the indexer description independently — don't use an anchor pointing to the null value.
-</details>
-
-**5. A Eurostat dataset has dimensions `geo`, `freq`, `na_item`, `unit`, `TIME_PERIOD`. You write `pinnedColumns: ["FREQ_Name", "GEO_Name", "NA_ITEM_Name", "UNIT_Name"]`. What's wrong?**
+**4. A Eurostat dataset has dimensions `geo`, `freq`, `na_item`, `unit`, `TIME_PERIOD`. You write `pinnedColumns: ["FREQ_Name", "GEO_Name", "NA_ITEM_Name", "UNIT_Name"]`. What's wrong?**
 
 <details>
 <summary>Answer</summary>
@@ -592,7 +556,7 @@ The YAML anchor resolves to `null`, making `indexer.description` empty. Indexing
 Case mismatch. Eurostat uses lowercase dimension IDs, so the `_Name` suffix must follow the exact casing: `freq_Name`, `geo_Name`, `na_item_Name`, `unit_Name`. Using uppercase (`FREQ_Name`, `GEO_Name`) won't match the actual dimension IDs, and those columns won't appear in the output.
 </details>
 
-**6. An FRB dataset only covers the US and has no country dimension in its SDMX structure. A user asks "What is the household debt ratio for the US?" and gets no results. What's missing?**
+**5. An FRB dataset only covers the US and has no country dimension in its SDMX structure. A user asks "What is the household debt ratio for the US?" and gets no results. What's missing?**
 
 <details>
 <summary>Answer</summary>
@@ -656,8 +620,6 @@ You're onboarding a new dataset. The Admin UI wizard shows:
 
 **Citation description:** `null` — the source description is meaningful, so StatGPT fetches it directly.
 
-**Indexer description:** Copy the source description independently (can't anchor to null citation).
-
 ```yaml
 urn:
   agency_id: "OECD"
@@ -698,17 +660,12 @@ pinnedColumns:
 indexer:
   indicator:
     unpack: false                          # Single-concept values
-    useCodeListDescription: false
-  description: >                           # Independent copy (citation is null)
-    Employment indicators by economic activity, covering employment levels,
-    unemployment rates, and labour force participation across OECD countries
 ```
 
 **Key decisions explained:**
 - `ACTIVITY` is INDICATOR, not NON_INDICATOR — "Agriculture, forestry and fishing" is a classification code, not a universally understood concept like a country name
 - `ACTIVITY` is optional (no `isRequired: true`) — a query for "unemployment rate in Germany" is meaningful even without specifying an activity sector
 - `DECIMALS` omitted from `includeAttributes` — decimal precision is metadata for display, not useful context for the AI agent
-- `indexer.description` written independently since `citation.description` is null
 
 </details>
 
@@ -754,8 +711,6 @@ pinnedColumns:
 indexer:
   indicator:
     unpack: false
-    useCodeListDescription: false
-  description: *cpi_desc
 ```
 
 **Your task:** Find all configuration errors, explain their impact, and provide the fix.
@@ -799,18 +754,6 @@ pinnedColumns:
   - index_type_Name
 ```
 (Also add `index_type_Name` since it's an indicator dimension.)
-
-**Error 4: `indexer.description: *cpi_desc` resolves to `null`**
-
-`citation.description` is `null`, and `*cpi_desc` is presumably a YAML anchor pointing to it. The anchor resolves to `null`, making `indexer.description` empty. Indexing will fail.
-
-Fix: Write the indexer description independently:
-```yaml
-indexer:
-  description: >
-    Harmonised Index of Consumer Prices (HICP) - monthly data providing
-    comparable measures of inflation across EU member states
-```
 
 </details>
 

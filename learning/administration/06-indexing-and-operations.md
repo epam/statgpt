@@ -26,7 +26,6 @@ Both strategies require a **search index** — a pre-computed representation of 
 
 For each dataset, the indexer processes:
 - **Code list items** from all indicator dimensions — their IDs, names, and (optionally) descriptions
-- **Dataset description** — from the `indexer.description` field in the dataset config
 
 The indexer creates embeddings (vector representations) for semantic search and text entries for fulltext search. The `unpack` setting controls whether packed indicator names are decomposed into individual concepts before indexing (see [Module 03b](03b-indicator-configuration.md#packed-vs-unpacked-indicators)).
 
@@ -54,9 +53,7 @@ These fields are **indexing-relevant** — changing them alters the search index
 | `virtual` dimension config | Adding or modifying a virtual dimension | Hash changes → `NEEDS_REINDEX` |
 | `processorId` on SPECIAL dimension | Changing the LHCL processor reference | Hash changes → `NEEDS_REINDEX` |
 | `subtype` on NON_INDICATOR | Changing REGION ↔ FREQUENCY | Hash changes → `NEEDS_REINDEX` |
-| `indexer.description` | Updating the dataset description for search | Hash changes → `NEEDS_REINDEX` |
 | `indexer.indicator.unpack` | Switching packed ↔ unpacked | Hash changes → `NEEDS_REINDEX` |
-| `indexer.indicator.useCodeListDescription` | Toggling code list descriptions (reserved — not yet implemented) | Hash changes → `NEEDS_REINDEX` |
 | `indexer.indicator.superPrimary` | Switching primary concatenation from 1 to 3 dimensions | Hash changes → `NEEDS_REINDEX` |
 | `indexer.indicator.annotations` | Adding or modifying indicator annotation config | Hash changes → `NEEDS_REINDEX` |
 | Upstream code list items changed | Provider added/renamed/removed indicators | Detected by [auto-update](#auto-update) |
@@ -113,7 +110,7 @@ Each dataset shows its indexing status in the "Status" column:
 | **Failed** | Indexing failed — check the configuration or retry |
 
 **If indexing fails:**
-1. Check the dataset configuration for errors (missing `indexer.description`, invalid dimension settings)
+1. Check the dataset configuration for errors (invalid dimension settings, missing required fields)
 2. Verify the data source is accessible
 3. Try reindexing again — transient errors (network timeouts, API rate limits) may resolve on retry
 4. If the problem persists, review the dataset's SDMX metadata for issues (see [Module 02](02-dataset-assessment.md))
@@ -158,7 +155,7 @@ When enabled, the tool output includes:
 
 **What to check:**
 - A dataset with **0 indicators** after indexing means something went wrong — check the dataset configuration
-  (missing `indexer.description`, incorrect `dimensionType` on indicator dimensions, etc.)
+  (incorrect `dimensionType` on indicator dimensions, etc.)
 - Compare the indicator count against the expected number of code list items in the indicator dimensions
 - A significant drop in count after reindexing may indicate a configuration regression
 
@@ -185,7 +182,6 @@ Indexing uses LLM tokens for embedding generation:
 
 **Cost factors:**
 - Number of code list items across all indicator dimensions
-- Whether `useCodeListDescription: true` (includes longer text per item)
 - Whether `unpack: true` (may increase the number of indexed items for packed indicators)
 - Reindexing the entire channel multiplies the cost by the number of datasets
 

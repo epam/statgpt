@@ -6,7 +6,6 @@
 
 - The concept of required vs. optional indicator dimensions
 - The difference between packed and unpacked indicators and the `unpack` indexer setting
-- The `useCodeListDescription` indexer setting
 - Concrete examples from IMF, Eurostat, ECB, BIS, and other agencies
 - How to apply these concepts in practice through exercises
 
@@ -16,27 +15,30 @@
 
 Once you've identified all INDICATOR dimensions, decide which are **required**:
 
-- **Required** (`isRequired: true`) — The user's query must specify a filter for at least one
-  required indicator dimension. Queries without any required indicator dimension filter are rejected.
-- **Optional** (no `isRequired`, or `isRequired: false`) — The dimension is optional;
-  queries can proceed without filtering on it.
+- **Required** (`isRequired: true`) — Filtering by this dimension alone is enough to trigger
+  a query against this dataset.
+- **Optional** (no `isRequired`, or `isRequired: false`) — The dimension provides supplementary
+  context, not sufficient on its own to trigger a query.
+
+A dataset query is **only executed** when the user's query filters on at least one of the dataset's
+required dimensions. Queries that don't match any required dimension are skipped.
 
 ### The Decision Question
 
-> *"If the user doesn't specify this dimension, can the system still return a meaningful answer?"*
+> *"If the user's query specifies a filter for this dimension, should it be enough to trigger a query against this dataset?"*
 >
-> **Yes** → optional. **No** → required.
+> **Yes** → required. **No** → optional.
 
-### Required — Without It, the Query Is Meaningless
+### Required — Filtering by This Dimension Produces a Sensible Query
 
-- WEO `INDICATOR` — *"What is [something] for Germany?"* has no meaning without specifying what indicator. Required.
-- CPI `INDEX_TYPE` + `COICOP_1999` — without specifying CPI vs. HICP **and** a product category, *"What is inflation?"*
-  is too vague. Both required.
+- WEO: `INDICATOR` — *"What is [something] for Germany?"* filters on `INDICATOR`, and that alone is enough to query WEO. Required.
+- CPI: `INDEX_TYPE` + `COICOP_1999` — filtering by either CPI vs. HICP or a product category is enough
+  to trigger a query against this dataset. Both required.
 
-### Optional — Without It, the System Returns Useful (but Less Specific) Data
+### Optional — This Dimension Is Supplementary, Not Sufficient on Its Own
 
-- CPI `TYPE_OF_TRANSFORMATION` — if not specified, the system returns "Index" by default. The answer is still
-  meaningful, just with a default transformation. Optional.
+- CPI `TYPE_OF_TRANSFORMATION` — filtering only by transformation type
+  should not be enough to trigger a query against this dataset. Optional.
 - ECB BSI `ADJUSTMENT` — seasonal adjustment is a refinement, not essential for returning meaningful data. Optional.
 
 ### Rules
@@ -166,24 +168,6 @@ Compare with WEO's `"Gross domestic product, constant prices, Percent change"` �
 **Result:** ER uses `unpack: false`. The config confirms this with the comment `# No need to unpack`.
 
 **Rule of thumb:** If the comma is part of natural English phrasing describing one thing, it's not packed. If the comma separates independent concepts that could each be a separate dimension, it's packed.
-
----
-
-## The `useCodeListDescription` Setting
-
-You'll see `useCodeListDescription` in indexer configurations alongside `unpack`:
-
-- **What it does:** When set to `true`, the indexer includes code list item *descriptions* (not just names) in the search index. This gives the semantic and keyword search more text to match against.
-- **When to use it:** Currently set to `true` in all IMF dataset configurations. Follow this pattern for new datasets when the provider includes meaningful descriptions in their code lists.
-- **Distinct from `indexer.description`:** The `indexer.description` field describes the *entire dataset* (used for dataset selection). `useCodeListDescription` controls whether *individual code list item descriptions* are included in the indicator search index.
-
-```yaml
-indexer:
-  description: "Dataset-level description used for dataset selection"  # indexer.description
-  indicator:
-    unpack: true
-    useCodeListDescription: true  # includes code list item descriptions in the search index
-```
 
 ---
 
@@ -534,7 +518,6 @@ values, not just the dimension ID.
 - Packed indicators combine multiple concepts in comma-separated values → set `unpack: true`
 - Unpacked indicators have single-concept values across multiple dimensions → set `unpack: false`
 - Commas in natural English descriptions (e.g., "exchange rate, period average") do not indicate packing
-- Use `useCodeListDescription: true` when the provider includes meaningful code list descriptions
 
 ---
 
@@ -618,7 +601,6 @@ Compare with the ECB BSI exercise: BSI's values like "Loans" and "Outstanding am
 indexer:
   indicator:
     unpack: true
-    useCodeListDescription: true
 ```
 
 </details>

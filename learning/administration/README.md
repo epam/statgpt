@@ -26,7 +26,7 @@ These learning materials guide StatGPT administrators through the process of onb
 | [01](01-core-concepts.md) | Core Concepts & Entity Relationships | StatGPT's three core entities (Data Source, Dataset, Channel), how they relate, and an introduction to SDMX |
 | [02](02-dataset-assessment.md) | Assessing Datasets for Onboarding | Evaluating SDMX metadata quality, identifying packed vs. unpacked indicator patterns (explained fully in Module 03b), and assessing business value |
 | [03a](03a-dimension-types.md) | Dimension Types & Named Entities | **Key module** — Classifying dimensions as INDICATOR, NON_INDICATOR, or TIME_PERIOD, and configuring Named Entity types |
-| [03b](03b-indicator-configuration.md) | Indicator Configuration | Required vs. optional indicators, packed vs. unpacked, `useCodeListDescription`, and concrete multi-agency examples |
+| [03b](03b-indicator-configuration.md) | Indicator Configuration | Required vs. optional indicators, packed vs. unpacked, and concrete multi-agency examples |
 | [04](04-dataset-configuration.md) | Configuring a Dataset | Field-by-field walkthrough of the dataset configuration YAML, with annotated IMF and multi-agency examples |
 | [05](05-data-sources-and-channels.md) | Data Sources & Channel Configuration | Adding data sources, creating channels, configuring the supreme agent, tools, and glossary |
 | [06](06-indexing-and-operations.md) | Indexing, Deduplication & Operations | Running and monitoring indexes, deduplication, auto-update, import/export, validating indexing results, and cost awareness |

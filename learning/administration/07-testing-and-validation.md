@@ -253,7 +253,7 @@ Run the same query 2-3 times to understand the variance:
 ### Step 7: Iterate
 
 If test results are unsatisfactory:
-1. Check the dataset configuration (dimension types, `unpack` setting, indexer description)
+1. Check the dataset configuration (dimension types, `unpack` setting, citation description)
 2. Review the code list metadata quality (see [Module 02](02-dataset-assessment.md))
 3. Reindex the dataset after making changes
 4. Re-test
@@ -384,7 +384,7 @@ Test your grasp of testing and validation before moving on.
 <details>
 <summary><strong>4. You just onboarded a new CPI dataset. Name three categories of test cases you should write.</strong></summary>
 
-**Answer:** (1) **Single indicator queries** — e.g., "What is CPI for Germany?" Tests basic indicator retrieval. (2) **Synonym queries** — e.g., "What is inflation in Brazil?" Tests whether "inflation" maps correctly to CPI indicators. (3) **Cross-dataset queries** — e.g., "What is GDP?" Tests that a GDP query does *not* match the CPI dataset and instead routes to the correct dataset (like WEO). Cross-dataset cases catch misclassification and overly broad indexer descriptions.
+**Answer:** (1) **Single indicator queries** — e.g., "What is CPI for Germany?" Tests basic indicator retrieval. (2) **Synonym queries** — e.g., "What is inflation in Brazil?" Tests whether "inflation" maps correctly to CPI indicators. (3) **Cross-dataset queries** — e.g., "What is GDP?" Tests that a GDP query does *not* match the CPI dataset and instead routes to the correct dataset (like WEO). Cross-dataset cases catch misclassification and overly broad dataset descriptions.
 
 </details>
 

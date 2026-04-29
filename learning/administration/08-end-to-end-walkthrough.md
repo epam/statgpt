@@ -117,7 +117,7 @@ urn:
 citation:
   provider: "IMF Statistics Department (STA)"
   url: https://data.imf.org/en/datasets/IMF.STA:EER
-  description: &eer_description >
+  description: >
     The Effective Exchange Rate (EER) dataset includes annual, quarterly and
     monthly nominal and real effective exchange rates by economy. Nominal
     effective exchange rates (NEERs) measure the value of a country's currency
@@ -167,19 +167,15 @@ pinnedColumns:
 indexer:
   indicator:
     unpack: true
-    useCodeListDescription: true
-  description: *eer_description
 ```
 
 **Key decisions documented:**
 - `version: "latest"` — always tracks the current published EER version
 - `unpack: true` — packed multi-concept values combining exchange rate type, index specification, and adjustment method
-- `useCodeListDescription: true` — following IMF dataset pattern
 - `isOfficial: false` — IMF is international, not national
 - `allValues` on COUNTRY — enables star-queries like "exchange rates for all countries"
 - `updatedAt` — checks three sources in order for the last-updated date
 - `pinnedColumns` ordered: FREQUENCY (least important) → COUNTRY → INDICATOR (most important)
-- `indexer.description` reuses citation description via YAML anchor
 - Each dimension explicitly configured with `dimensionType` in the `dimensions` map
 
 ---
@@ -325,10 +321,8 @@ Run each test case 2-3 times in the chat interface:
 ### Iteration Example
 
 If test 2 consistently returns NEER instead of REER for depreciation queries, consider:
-- Is the `indexer.description` clear enough about what the dataset contains?
-- Would adding more detail to the description help disambiguation between REER and NEER?
-- Is `useCodeListDescription: true` providing enough search context?
 - Would the `unpack: true` setting improve or degrade search for these multi-concept indicator names?
+- Are the indicator code list names descriptive enough to disambiguate REER from NEER?
 
 Adjust configuration → reindex → retest until results are satisfactory.
 
@@ -343,7 +337,7 @@ This walkthrough covered the complete onboarding lifecycle:
 | Assessment | [02](02-dataset-assessment.md) | All blockers clear, business value confirmed |
 | Dimension classification | [03a](03a-dimension-types.md) | INDICATOR (1), NON_INDICATOR (2), TIME_PERIOD (1) |
 | Indicator configuration | [03b](03b-indicator-configuration.md) | `unpack: true`, INDICATOR required |
-| Dataset YAML | [04](04-dataset-configuration.md) | Complete configuration with YAML anchor pattern |
+| Dataset YAML | [04](04-dataset-configuration.md) | Complete configuration with all required fields |
 | Data Source & Channel | [05](05-data-sources-and-channels.md) | Existing data source, no new Named Entity types |
 | Indexing | [06](06-indexing-and-operations.md) | Index + deduplicate |
 | Testing | [07](07-testing-and-validation.md) | 4 test cases across categories |
