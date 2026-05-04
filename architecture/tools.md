@@ -223,3 +223,12 @@ Returns:
 - Provides static content to agent or users
 
 **Example Use Case**: Portal guides with dynamic information about available pages and features.
+
+## 🔌 Programmatic Access
+
+The same tool catalog above is also exposed over the [Model Context Protocol](https://modelcontextprotocol.io/) by
+StatGPT's **Application MCP** server, so DIAL applications and other MCP-aware clients can invoke them under their
+own LLM control. The MCP tool surface for a given channel is whatever its YAML enables.
+
+→ See [Application MCP](../mcp/README.md) for the endpoint, sample MCP exchanges, and the end-to-end client
+walkthrough.
