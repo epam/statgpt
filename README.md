@@ -22,10 +22,9 @@ StatGPT bridges the gap between complex statistical databases and everyday users
 - [Architecture Overview](./architecture/overview.md) - Solution overview and core requirements
 - [SDMX Compatibility](./architecture/sdmx-compatibility.md) - SDMX integration details
 
-### [Application MCP](./mcp/README.md)
-Programmatic tool access via the Model Context Protocol:
-- Channel tools exposed to DIAL applications and other MCP-aware clients
-- [Authentication & Authorization](./mcp/auth.md) - DIAL Application config, MCP-spec discovery, IDP OAuth flow
+### [Application MCP](./architecture/mcp.md)
+Programmatic tool access via the Model Context Protocol — channel tools exposed to DIAL applications and other
+MCP-aware clients, with DIAL Application registration, MCP-spec discovery, and IDP OAuth flow.
 
 ### Guides
 - [Admin Guide](./guides/admin-guide.md) - System administration and configuration

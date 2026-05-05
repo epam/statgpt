@@ -207,7 +207,7 @@ Backend. AI DIAL fronts the endpoint as the `mcpEndpoint` of a DIAL Application;
 authorization-server discovery and forwards the user's bearer + per-request key to StatGPT, so DIAL applications and
 other MCP-aware clients can invoke the tools under their own LLM control.
 
-→ See the [Application MCP documentation](../mcp/README.md) for the endpoint, tool catalog, and authentication flow.
+→ See the [Application MCP documentation](../architecture/mcp.md) for the endpoint, tool catalog, and authentication flow.
 
 ### Security & Privacy
 

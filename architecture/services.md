@@ -103,7 +103,7 @@ The Chat Backend exposes channel tools over the [Model Context Protocol](https:/
 `mcpEndpoint` of a DIAL Application; DIAL handles MCP-spec authorization-server discovery and forwards user
 credentials to the endpoint.
 
-→ See [Application MCP](../mcp/README.md) for the tools catalog and request flow.
+→ See [Application MCP](./mcp.md) for the tools catalog and request flow.
 
 ### ⚙️ StatGPT Admin Backend
 
