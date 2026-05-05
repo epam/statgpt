@@ -223,3 +223,11 @@ Returns:
 - Provides static content to agent or users
 
 **Example Use Case**: Portal guides with dynamic information about available pages and features.
+
+## 🔌 Agentic Access via MCP
+
+The same tool catalog above is also exposed over the [Model Context Protocol](https://modelcontextprotocol.io/) by
+StatGPT's **Application MCP** server, so AI agents can invoke these tools inside their own reasoning loops.
+The MCP tool surface for a given channel is whatever its YAML enables.
+
+→ See [Application MCP](./mcp.md) for the endpoint and authentication flow.

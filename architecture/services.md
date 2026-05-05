@@ -96,6 +96,15 @@ with [DIAL API Specification](https://dialx.ai/dial_api#operation/sendChatComple
 | **External AI Models**    | LLM capabilities (e.g., Azure OpenAI)                |
 | **SDMX Providers**        | Statistical data sources (IMF, World Bank, Eurostat) |
 
+#### MCP Endpoint
+
+The Chat Backend exposes channel tools over the [Model Context Protocol](https://modelcontextprotocol.io/) at
+`POST /api/v1/{deployment_id}/mcp`, fronted by AI DIAL as the `mcpEndpoint` of a DIAL Application. DIAL handles
+MCP-spec authorization-server discovery and forwards the user's credentials to the endpoint, so AI agents can
+invoke channel tools inside their own reasoning loops.
+
+→ See [Application MCP](./mcp.md) for the tools catalog and request flow.
+
 ### ⚙️ StatGPT Admin Backend
 
 #### Technology Stack

@@ -199,6 +199,15 @@ The AI agent is explicitly instructed to:
 
 → See [AI DIAL Access Control](https://docs.dialx.ai/platform/core/access-control-intro) for configuration.
 
+### Agentic Access via MCP
+
+In addition to the chat UI, StatGPT exposes a channel's configured tools (data query, RAG, glossary, web search, …)
+over the [Model Context Protocol](https://modelcontextprotocol.io/) via **Application MCP**, mounted on the Chat
+Backend. AI DIAL fronts the endpoint as the `mcpEndpoint` of a DIAL Application and handles MCP-spec
+authorization-server discovery, so AI agents can invoke StatGPT tools inside their own reasoning loops.
+
+→ See [Application MCP](./mcp.md) for the endpoint, tool catalog, and authentication flow.
+
 ### Security & Privacy
 
 **Data Protection**:

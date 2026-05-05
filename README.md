@@ -22,6 +22,10 @@ StatGPT bridges the gap between complex statistical databases and everyday users
 - [Architecture Overview](./architecture/overview.md) - Solution overview and core requirements
 - [SDMX Compatibility](./architecture/sdmx-compatibility.md) - SDMX integration details
 
+### [Application MCP](./architecture/mcp.md)
+Agentic access via the Model Context Protocol — channel tools surfaced to AI agents (Claude, Cursor, MCP-aware DIAL
+applications). Covers DIAL Application registration, MCP-spec discovery, and IDP OAuth flow in one page.
+
 ### Guides
 - [Admin Guide](./guides/admin-guide.md) - System administration and configuration
 - [GTDC Portal Guide](./guides/gtdc-portal-guide.md) - Instructions for using the GTDC (Global Trusted Data Commons) Portal

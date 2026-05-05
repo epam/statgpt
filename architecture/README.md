@@ -12,9 +12,10 @@ design, services, tools, and integration requirements.
 | **[📋 Overview](./overview.md)**                     | Complete platform overview with requirements and features | • Natural language querying<br>• Data accuracy & reliability<br>• Security & governance<br>• Performance & scalability |
 | **[🏭 Services](./services.md)**                     | Core services and dependencies architecture               | • Chat Backend (DIAL app)<br>• Admin Backend & Frontend<br>• Portal Frontend<br>• Third-party integrations             |
 | **[🔧 Tools](./tools.md)**                           | Agent tools and capabilities documentation                | • Data query tools<br>• Publications RAG<br>• Glossary management<br>• Web search integration                          |
+| **[🔌 Application MCP](./mcp.md)**                   | Agentic access via Model Context Protocol                 | • Channel tools surfaced to AI agents<br>• DIAL Application registration<br>• MCP-spec discovery + IDP OAuth flow      |
 | **[📊 SDMX Compatibility](./sdmx-compatibility.md)** | SDMX standards and requirements guide                     | • Version support (2.1/3.0)<br>• Metadata requirements<br>• Performance standards<br>• Quality checklist               |
 
-### Design Documentation
+### Design Documentation/res
 
 | Document                          | Description                                   | Key Topics                                                                        |
 |-----------------------------------|-----------------------------------------------|-----------------------------------------------------------------------------------|
@@ -100,7 +101,3 @@ All architecture documentation follows these principles:
 - **Navigation**: Internal links and cross-references for easy browsing
 - **Completeness**: Comprehensive coverage of technical requirements
 - **Maintenance**: Regular updates as the platform evolves
-
----
-
-*Last updated: September 2025*
