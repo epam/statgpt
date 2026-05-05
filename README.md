@@ -23,8 +23,8 @@ StatGPT bridges the gap between complex statistical databases and everyday users
 - [SDMX Compatibility](./architecture/sdmx-compatibility.md) - SDMX integration details
 
 ### [Application MCP](./architecture/mcp.md)
-Programmatic tool access via the Model Context Protocol — channel tools exposed to DIAL applications and other
-MCP-aware clients, with DIAL Application registration, MCP-spec discovery, and IDP OAuth flow.
+Agentic access via the Model Context Protocol — channel tools surfaced to AI agents (Claude, Cursor, MCP-aware DIAL
+applications). Covers DIAL Application registration, MCP-spec discovery, and IDP OAuth flow in one page.
 
 ### Guides
 - [Admin Guide](./guides/admin-guide.md) - System administration and configuration
