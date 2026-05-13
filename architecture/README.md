@@ -61,6 +61,7 @@ Stateless services design enables horizontal scaling to handle varying loads eff
 - [StatGPT Backend](https://github.com/epam/statgpt-backend) - Core services implementation
 - [StatGPT Admin Frontend](https://github.com/epam/statgpt-admin-frontend) - Administrative interface
 - [StatGPT Portal Frontend](https://github.com/epam/statgpt-portal-frontend) - User interface library
+- [StatGPT SDMX Proxy](https://github.com/epam/statgpt-sdmx-proxy) - Unified SDMX 3.0 facade in front of upstream registries
 - [StatGPT Helm](https://github.com/epam/statgpt-helm) - Kubernetes deployment charts
 
 ### External Documentation

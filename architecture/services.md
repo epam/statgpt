@@ -88,13 +88,13 @@ with [DIAL API Specification](https://dialx.ai/dial_api#operation/sendChatComple
 
 #### Dependencies
 
-| Service                   | Purpose                                              |
-|---------------------------|------------------------------------------------------|
-| **AI DIAL**               | Platform services and model access                   |
-| **PostgreSQL + pgvector** | Data storage and vector operations                   |
-| **ElasticSearch**         | Search and indexing                                  |
-| **External AI Models**    | LLM capabilities (e.g., Azure OpenAI)                |
-| **SDMX Providers**        | Statistical data sources (IMF, World Bank, Eurostat) |
+| Service                   | Purpose                                                                     |
+|---------------------------|-----------------------------------------------------------------------------|
+| **AI DIAL**               | Platform services and model access                                          |
+| **PostgreSQL + pgvector** | Data storage and vector operations                                          |
+| **ElasticSearch**         | Search and indexing                                                         |
+| **External AI Models**    | LLM capabilities (e.g., Azure OpenAI)                                       |
+| **StatGPT SDMX Proxy**    | Unified SDMX 3.0 facade in front of upstream SDMX registries (IMF, BIS, …). |
 
 #### MCP Endpoint
 
@@ -147,11 +147,58 @@ invoke channel tools inside their own reasoning loops.
 
 | Service                   | Purpose                                     |
 |---------------------------|---------------------------------------------|
-| **PostgreSQL + pgvector** | Configuration and metadata storage          |
-| **SDMX Providers**        | Dataset sources (IMF, World Bank, Eurostat) |
-| **Identity Provider**     | Authentication (Azure Entra ID, Keycloak)   |
-| **AI DIAL**               | Content storage (files, archives)           |
-| **External AI Models**    | Dataset indexing (e.g., Azure OpenAI)       |
+| **PostgreSQL + pgvector** | Configuration and metadata storage                                                                                                                |
+| **StatGPT SDMX Proxy**    | Unified SDMX 3.0 facade in front of upstream SDMX registries (IMF, BIS, …). Admin Backend reads metadata for dataset onboarding through the proxy. |
+| **Identity Provider**     | Authentication (Azure Entra ID, Keycloak)                                                                                                         |
+| **AI DIAL**               | Content storage (files, archives)                                                                                                                 |
+| **External AI Models**    | Dataset indexing (e.g., Azure OpenAI)                                                                                                             |
+
+### 🔁 StatGPT SDMX Proxy
+
+#### Technology Stack
+
+**Type**: Standalone Spring Boot service ([repository](https://github.com/epam/statgpt-sdmx-proxy))
+
+**Core Frameworks**:
+
+| Framework                                                         | Purpose                                          |
+|-------------------------------------------------------------------|--------------------------------------------------|
+| [Spring Boot 4.0](https://spring.io/projects/spring-boot)         | Application framework                            |
+| [OpenFeign](https://github.com/OpenFeign/feign)                   | Declarative HTTP clients for upstream registries |
+| [Resilience4j](https://resilience4j.readme.io/)                   | Circuit breaker, retry, rate limiting            |
+| [Spring Data Redis](https://spring.io/projects/spring-data-redis) | Distributed caching backend                      |
+| [OpenTelemetry](https://opentelemetry.io/)                        | Observability (traces, metrics, logs)            |
+
+#### Overview
+
+**Primary Function**: Expose a single, unified
+[SDMX 3.0 REST API](https://github.com/sdmx-twg/sdmx-rest/tree/master/doc) in front of multiple upstream SDMX
+registries (IMF, BIS, …) so that StatGPT components are decoupled from per-registry version, format, auth, and
+quirk differences.
+
+**Key Responsibilities**:
+
+- Protocol translation between SDMX 2.1 and SDMX 3.0
+- Format conversion across SDMX-JSON, SDMX-ML (XML), and SDMX-CSV
+- Agency-based routing (including sub-agency wildcarding and synthetic AgencyScheme discovery)
+- Caching, circuit breaking, retries, rate limiting, and per-registry response patching
+- Configuration-driven onboarding of new registries (no code change required)
+
+#### Authentication & Authorization
+
+**Outbound** (to upstream SDMX registries): currently the proxy does not send credentials to upstream registries.
+
+**Inbound**: the proxy itself is not directly exposed to the internet. External traffic reaches it through DIAL
+Core, which is responsible for authorizing requests. StatGPT backends call the proxy over the internal cluster
+network.
+
+#### Dependencies
+
+| Service              | Purpose                                                                                                |
+|----------------------|--------------------------------------------------------------------------------------------------------|
+| **SDMX Registries**  | Upstream statistical data sources (IMF, BIS, and any registry added via configuration)                 |
+| **Redis** (optional) | Distributed cache (`CACHE_MODE=REDIS`). Falls back to in-memory Caffeine when unavailable.             |
+| **Config Server** (optional) | `sdmx-proxy-config-server` module — runtime-managed registry configuration when the bundled defaults aren't enough. |
 
 ### 🕹️ StatGPT Admin Frontend
 
@@ -239,7 +286,7 @@ invoke channel tools inside their own reasoning loops.
 
 | Service                  | Purpose                                               |
 |--------------------------|-------------------------------------------------------|
-| **DIAL Platform**        | Authentication, rate limits, file storage, API access |
-| **StatGPT Chat Backend** | Core chat and data query services                     |
-| **Identity Provider**    | User authentication and SSO                           |
-| **SDMX Providers**       | Direct metadata and data queries                      |
+| **DIAL Platform**        | Authentication, rate limits, file storage, API access                                                                              |
+| **StatGPT Chat Backend** | Core chat and data query services                                                                                                  |
+| **Identity Provider**    | User authentication and SSO                                                                                                        |
+| **StatGPT SDMX Proxy**   | Metadata and data queries from the Advanced View editor — Portal does not call upstream SDMX registries directly.                  |
