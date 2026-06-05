@@ -194,11 +194,15 @@ flowchart TD
    side, so semantics drive recall while keyword scores refine the ordering.
 4. **Diversify** the ranked list so no single dataset or concept monopolizes the candidate budget, with a
    safety net that re-includes the strongest candidates if diversification dropped them.
-5. **Rate with an LLM.** The candidate list is shown to an LLM that scores each one for relevance on a small
-   integer scale (irrelevant → ideal). General questions are steered toward general indicators rather than
+5. **Rate with an LLM.** The candidate list is shown to an LLM that scores each one for relevance on a **0–3**
+   scale (0 = irrelevant, 3 = ideal). General questions are steered toward general indicators rather than
    overly specific ones.
-6. **Select.** Only the best-rated indicators per dataset are kept (and a dataset whose best candidate is only
-   weakly relevant is dropped entirely). The survivors become the indicator portion of the dataset query.
+6. **Select against a relevance threshold.** Only the best-rated indicators per dataset are kept, and a dataset
+   is retained only if its best candidate reaches a configurable **minimum relevance score** —
+   `single_dataset_score_threshold` / `multi_dataset_score_threshold` (default **2** on the 0–3 scale). A dataset
+   whose best candidate scores below the threshold is dropped entirely. If **no** candidate in any dataset clears
+   the bar, indicator search returns nothing — which on its own leads to a *no-data* outcome. The survivors
+   become the indicator portion of the dataset query.
 
 > **The two score systems again:** the numeric fusion score from step 3 only governs *which* candidates reach
 > the LLM and their order. The integer **LLM relevance rating** from step 5 governs what is actually *kept*.
