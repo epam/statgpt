@@ -12,6 +12,7 @@ design, services, tools, and integration requirements.
 | **[📋 Overview](./overview.md)**                     | Complete platform overview with requirements and features | • Natural language querying<br>• Data accuracy & reliability<br>• Security & governance<br>• Performance & scalability |
 | **[🏭 Services](./services.md)**                     | Core services and dependencies architecture               | • Chat Backend (DIAL app)<br>• Admin Backend & Frontend<br>• Portal Frontend<br>• Third-party integrations             |
 | **[🔧 Tools](./tools.md)**                           | Agent tools and capabilities documentation                | • Data query tools<br>• Publications RAG<br>• Glossary management<br>• Web search integration                          |
+| **[🔎 Data Query & Hybrid Search](./data-query-hybrid-search.md)** | How NL queries become grounded SDMX data, and how hybrid indicator search works (conceptual) | • Composite indicators<br>• Keyword + semantic + LLM<br>• Two-phase indexing<br>• Availability grounding |
 | **[🔌 Application MCP](./mcp.md)**                   | Agentic access via Model Context Protocol                 | • Channel tools surfaced to AI agents<br>• DIAL Application registration<br>• MCP-spec discovery + IDP OAuth flow      |
 | **[📊 SDMX Compatibility](./sdmx-compatibility.md)** | SDMX standards and requirements guide                     | • Version support (2.1/3.0)<br>• Metadata requirements<br>• Performance standards<br>• Quality checklist               |
 
@@ -20,6 +21,7 @@ design, services, tools, and integration requirements.
 | Document                          | Description                                   | Key Topics                                                                        |
 |-----------------------------------|-----------------------------------------------|-----------------------------------------------------------------------------------|
 | **[🤖 Agent Design](./agent.md)** | StatGPT agent architecture and implementation | • Tool-calling approach<br>• Dynamic history management<br>• Contextual grounding |
+| **[🛠️ Data Query Internals](./data-query-internals.md)** | Engineering deep dive into the Data Query pipeline and hybrid search | • Pipeline orchestration<br>• Runtime hybrid engine<br>• Offline indexer<br>• Component & code references |
 
 ## 🗺️ Quick Navigation Guide
 
@@ -84,6 +86,8 @@ Stateless services design enables horizontal scaling to handle varying loads eff
 
 1. **Understanding the System** → Read documents in this order:
     - [Overview](./overview.md) → [Services](./services.md) → [Agent Design](./agent.md) → [Tools](./tools.md)
+    - Then, for data querying: [Data Query & Hybrid Search](./data-query-hybrid-search.md) (concepts) →
+      [Data Query Internals](./data-query-internals.md) (implementation)
 
 2. **Integration Planning** → Focus on:
     - [SDMX Compatibility](./sdmx-compatibility.md) for data requirements
