@@ -34,6 +34,18 @@ effectively with statistical data sources.
 - ✅ Available Constraint endpoint
 - ✅ Data endpoint
 
+## 📐 Supported Data Models
+
+StatGPT is an indicator-search-based system and supports only the **conventional
+(multi-indicator dataflow)** data model. Providers whose indicator is encoded by *which
+dataflow (or table)* you pick — the **shared DSD** (e.g. OECD) and **indicator-per-dataflow /
+dedicated-DSD-per-dataset** (e.g. Eurostat, ISTAT, ABS, ILO) models — are **not supported yet**.
+
+The three data models, their example providers, and why StatGPT supports one of them are
+described in a dedicated document:
+
+➡️ **[SDMX Data Models & StatGPT Support](./sdmx-data-models.md)**
+
 ## 🌐 Connectivity Requirements
 
 ### API Availability
@@ -179,6 +191,7 @@ Use this checklist to ensure your SDMX metadata meets StatGPT requirements:
 5. **Missing Concept Definitions**: Reduces context understanding
 6. **Slow API Response Times**: Degrades user experience
 7. **Authentication Complexity**: Currently not supported by StatGPT
+8. **Unsupported Data Model**: Only the conventional multi-indicator dataflow model is supported — see [Supported Data Models](#-supported-data-models) and [SDMX Data Models & StatGPT Support](./sdmx-data-models.md)
 
 ## 💡 Recommendations for Data Providers
 

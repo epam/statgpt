@@ -15,6 +15,7 @@ design, services, tools, and integration requirements.
 | **[🔎 Data Query & Hybrid Search](./data-query-hybrid-search.md)** | How NL queries become grounded SDMX data, and how hybrid indicator search works (conceptual) | • Composite indicators<br>• Keyword + semantic + LLM<br>• Two-phase indexing<br>• Availability grounding |
 | **[🔌 Application MCP](./mcp.md)**                   | Agentic access via Model Context Protocol                 | • Channel tools surfaced to AI agents<br>• DIAL Application registration<br>• MCP-spec discovery + IDP OAuth flow      |
 | **[📊 SDMX Compatibility](./sdmx-compatibility.md)** | SDMX standards and requirements guide                     | • Version support (2.1/3.0)<br>• Metadata requirements<br>• Performance standards<br>• Quality checklist               |
+| **[📐 SDMX Data Models](./sdmx-data-models.md)**     | SDMX data-model patterns and which StatGPT supports       | • Conventional (supported)<br>• Shared DSD<br>• Indicator-per-dataflow<br>• Why indicator search fits one model |
 
 ### Design Documentation/res
 
