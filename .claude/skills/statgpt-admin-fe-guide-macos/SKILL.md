@@ -47,8 +47,7 @@ These protect a **public** docs repo and a **shared** environment. Re-read them 
 
 - **Sample content only.** Every screenshot must show *only* sample entities. Filter every list to
   the sample data source (e.g. `IMF_SDMX21`), the sample channel (e.g. **StatGPT Sample**), and the
-  "**- Sample**" datasets. Never let other orgs' content appear (e.g. QH_UAT_SWRE, STATGPT_SDMX30_PROXY,
-  SwissRe, GTDC, Global Data). If a screen can't be filtered to sample-only (e.g. an "Add datasets to
+  "**- Sample**" datasets. Never let other orgs' content appear. If a screen can't be filtered to sample-only (e.g. an "Add datasets to
   channel" picker that lists everything and has no source filter), **don't screenshot it** — describe
   it in prose instead. Confirm the exact sample identifiers for the target environment up front.
 - **Redact PII.** Audit logs and similar screens show real user emails. Mask those columns with a
