@@ -6,22 +6,23 @@ requirements.
 
 ## Overview
 
-Across SDMX providers there are three data models. StatGPT supports only the **conventional
-(multi-indicator dataflow)** model — where the indicator is a dimension inside one broad
-dataflow, which is what StatGPT's indicator search resolves and filters within (see
-[Data Query & Hybrid Search](./data-query-hybrid-search.md)). The **shared DSD** and
-**indicator-per-dataflow** models — where the indicator is instead encoded by *which dataflow
-(or table)* you pick — are **not supported yet**.
+Across SDMX providers there are three data models. StatGPT gives **first-class support** to the
+**conventional (multi-indicator dataflow)** model — where the indicator is a dimension inside one
+broad dataflow, which is what StatGPT's indicator search resolves and filters within (see
+[Data Query & Hybrid Search](./data-query-hybrid-search.md)). The **shared DSD** model (e.g. OECD)
+is **supported, but not optimal**: it can be onboarded, but only one dataflow at a time rather than
+a whole DSD and all its dataflows at once. The **indicator-per-dataflow** model — where the
+indicator is encoded by *which dataflow (or table)* you pick — is **not supported yet**.
 
-| # | Data model | Indicator is selected by… | Example providers | Supported |
+| # | Data model | Indicator is selected by… | Example providers | Support |
 |---|------------|---------------------------|-------------------|:---------:|
-| 1 | **Conventional (multi-indicator dataflow)** | a dimension *inside* one broad dataflow | IMF, BIS | ✅ Yes |
-| 2 | **Shared DSD** | *which dataflow* (one DSD split across many per-country / per-table dataflows) | OECD | ❌ Not yet |
+| 1 | **Conventional (multi-indicator dataflow)** | a dimension *inside* one broad dataflow | IMF, BIS | ✅ Supported |
+| 2 | **Shared DSD** | *which dataflow* (one DSD split across many per-country / per-table dataflows) | OECD | ⚠️ Supported, but not optimal |
 | 3 | **Indicator-per-dataflow (dedicated DSD per dataset)** | *which dataflow* (one narrow table = one DSD) | Eurostat, ISTAT, ABS, ILO | ❌ Not yet |
 
 ---
 
-## 1. Conventional (multi-indicator dataflow) — ✅ Supported
+## 1. Conventional (multi-indicator dataflow) — ✅ First-class support
 
 A dataset is a **single broad dataflow that holds many indicators**.
 
@@ -40,7 +41,7 @@ implements.
 
 ---
 
-## 2. Shared DSD — ❌ Not supported yet
+## 2. Shared DSD — ⚠️ Supported, but not optimal
 
 One rich DSD is **deliberately partitioned into many semantically-distinct dataflows** —
 typically one dataflow per country or per sub-table. The DSD is shared; the dataflows are
@@ -52,6 +53,19 @@ narrow slices of it.
   dataflows ride a shared DSD.
 - Each dataflow is a narrow slice of the shared structure — typically one country or one
   sub-table — not a broad indicator dataflow.
+
+**Support status:** this model *can* be onboarded, so it is not unsupported — but it is not
+optimal. Because StatGPT onboards at the dataflow level, each of a shared DSD's dataflows has
+to be onboarded **individually**, rather than onboarding the DSD once and picking up all of its
+dataflows automatically. The practical consequences:
+
+- **Slow, laborious onboarding** — a DSD split into dozens or hundreds of per-country / per-table
+  dataflows means dozens or hundreds of separate onboarding steps.
+- **Possible quality trade-offs** — because the indicator context is spread across many narrow
+  dataflows instead of one broad indicator dimension, search and grounding quality can suffer.
+
+So a shared-DSD provider is workable today; it is simply neither efficient nor optimal, and it is
+not the model StatGPT is designed around.
 
 **Example: OECD**
 
@@ -104,8 +118,8 @@ determined by *which* dataflow is chosen, not by a dimension within one.
 
 ## Summary
 
-| Data model | Example providers | Supported |
+| Data model | Example providers | Support |
 |------------|-------------------|:---------:|
-| Conventional (multi-indicator dataflow) | IMF, BIS | ✅ |
-| Shared DSD | OECD | ❌ |
-| Indicator-per-dataflow (dedicated DSD per dataset) | Eurostat, ISTAT, ABS, ILO | ❌ |
+| Conventional (multi-indicator dataflow) | IMF, BIS | ✅ Supported |
+| Shared DSD | OECD | ⚠️ Supported, but not optimal |
+| Indicator-per-dataflow (dedicated DSD per dataset) | Eurostat, ISTAT, ABS, ILO | ❌ Not yet |

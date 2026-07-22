@@ -36,12 +36,14 @@ effectively with statistical data sources.
 
 ## 📐 Supported Data Models
 
-StatGPT is an indicator-search-based system and supports only the **conventional
-(multi-indicator dataflow)** data model. Providers whose indicator is encoded by *which
-dataflow (or table)* you pick — the **shared DSD** (e.g. OECD) and **indicator-per-dataflow /
-dedicated-DSD-per-dataset** (e.g. Eurostat, ISTAT, ABS, ILO) models — are **not supported yet**.
+StatGPT is an indicator-search-based system and gives **first-class support** to the
+**conventional (multi-indicator dataflow)** data model. The **shared DSD** model (e.g. OECD) is
+**supported, but not optimal** — it can be onboarded, but only one dataflow at a time, which makes
+onboarding slow and can affect quality. The **indicator-per-dataflow / dedicated-DSD-per-dataset**
+model (e.g. Eurostat, ISTAT, ABS, ILO), where the indicator is encoded by *which dataflow (or
+table)* you pick, is **not supported yet**.
 
-The three data models, their example providers, and why StatGPT supports one of them are
+The three data models, their example providers, and StatGPT's support for each are
 described in a dedicated document:
 
 ➡️ **[SDMX Data Models & StatGPT Support](./sdmx-data-models.md)**
@@ -191,7 +193,7 @@ Use this checklist to ensure your SDMX metadata meets StatGPT requirements:
 5. **Missing Concept Definitions**: Reduces context understanding
 6. **Slow API Response Times**: Degrades user experience
 7. **Authentication Complexity**: Currently not supported by StatGPT
-8. **Unsupported Data Model**: Only the conventional multi-indicator dataflow model is supported — see [Supported Data Models](#-supported-data-models) and [SDMX Data Models & StatGPT Support](./sdmx-data-models.md)
+8. **Non-conventional Data Model**: The conventional multi-indicator dataflow model has first-class support; the shared DSD model is workable but not optimal, and the indicator-per-dataflow model is not supported yet — see [Supported Data Models](#-supported-data-models) and [SDMX Data Models & StatGPT Support](./sdmx-data-models.md)
 
 ## 💡 Recommendations for Data Providers
 
