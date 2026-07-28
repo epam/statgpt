@@ -82,7 +82,7 @@ with [DIAL API Specification](https://dialx.ai/dial_api#operation/sendChatComple
 
 🔐 [Authentication & Authorization](https://docs.dialx.ai/platform/architecture-and-concepts/components#authentication-and-authorization)
 -
-📊 [Rate Limits & Cost Control](https://docs.dialx.ai/platform/architecture-and-concepts/components#rate-limits--cost-control)
+📊 [Usage Limits & Cost Control](https://docs.dialx.ai/platform/core/token-limits-and-cost-control)
 
 - 📁 [File Attachment Storage](https://docs.dialx.ai/platform/architecture-and-concepts/components#persistent-layer)
 
