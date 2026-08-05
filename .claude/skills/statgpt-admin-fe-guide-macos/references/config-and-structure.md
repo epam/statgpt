@@ -20,7 +20,9 @@ admin UI actually stores — which differs from the seed files.
 Keys seen: `apiKey`, `locale`, `authConfig`, `rateLimits`, `sdmxConfig` (`id`, `url`, `name`,
 `headers` per resource type, `supports`, `versions`, `dataContentType`), `authEnabled`, `sdmx1Source`,
 `apiKeyHeader`, `attributesUrl`, `annotationsUrl`, `dataExplorerUrl`, `providerDiscovery`. The
-connector (`SDMX21` / `QH_SDMX21` / `PROXY_SDMX30`) is chosen in the wizard's Properties step.
+connector (`SDMX21` / `QH_SDMX21` / `PROXY_SDMX30`) is chosen in the wizard's Properties step. Keep this framing
+when rewriting the connector list: **`PROXY_SDMX30` is recommended** (one data source covers many providers),
+**`QH_SDMX21` is only for QuantHub-based registries**, and **`SDMX21` is deprecated**.
 
 ### Dataset config — the **`dimensions` map** is the headline schema
 
@@ -79,6 +81,11 @@ Adjust to scope. Each list/menu screen filtered to sample content.
 
 - `ds-list` (Add, filter, row ⋯) · `ds-add-properties` (Name, connector, Next) ·
   `ds-add-config` (editor, Finish) · `ds-configure` (editor, Save)
+- **Not captured yet** (`<!-- SCREENSHOT (pending) -->` markers sit at the intended spots in
+  `admin-guide.md`): `ds-add-config-proxy` (Step 2 editor for a `PROXY_SDMX30` source, scrolled to
+  `configUrl` + head of `proxyConfig`) · `ds-configure-proxy` (Configure editor with a populated
+  `proxyConfig`). Both need a **sample-only** `PROXY_SDMX30` data source on the environment — the
+  sample seed configs have none, and creating one on a shared environment is out of bounds.
 - `datasets-list` (Add, filter, row ⋯) · `datasets-row-menu` (Edit/Delete) ·
   `dataset-add-source` / `dataset-add-provider` / `dataset-add-dataflow` (select + Next) ·
   `dataset-add-config` (the `dimensions` block, Finish) · `dataset-edit-config` (editor, Save)

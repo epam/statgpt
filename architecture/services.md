@@ -145,13 +145,14 @@ invoke channel tools inside their own reasoning loops.
 
 #### Dependencies
 
-| Service                   | Purpose                                     |
-|---------------------------|---------------------------------------------|
-| **PostgreSQL + pgvector** | Configuration and metadata storage                                                                                                                |
+| Service                   | Purpose                                                                                                                                            |
+|---------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------|
+| **PostgreSQL + pgvector** | Configuration and metadata storage                                                                                                                 |
 | **StatGPT SDMX Proxy**    | Unified SDMX 3.0 facade in front of upstream SDMX registries (IMF, BIS, …). Admin Backend reads metadata for dataset onboarding through the proxy. |
-| **Identity Provider**     | Authentication (Azure Entra ID, Keycloak)                                                                                                         |
-| **AI DIAL**               | Content storage (files, archives)                                                                                                                 |
-| **External AI Models**    | Dataset indexing (e.g., Azure OpenAI)                                                                                                             |
+| **SDMX Proxy Config Server** | Owns the proxy's registry configuration.                                                                                                        |
+| **Identity Provider**     | Authentication (Azure Entra ID, Keycloak)                                                                                                          |
+| **AI DIAL**               | Content storage (files, archives)                                                                                                                  |
+| **External AI Models**    | Dataset indexing (e.g., Azure OpenAI)                                                                                                              |
 
 ### 🔁 StatGPT SDMX Proxy
 
@@ -174,7 +175,9 @@ invoke channel tools inside their own reasoning loops.
 **Primary Function**: Expose a single, unified
 [SDMX 3.0 REST API](https://github.com/sdmx-twg/sdmx-rest/tree/master/doc) in front of multiple upstream SDMX
 registries (IMF, BIS, …) so that StatGPT components are decoupled from per-registry version, format, auth, and
-quirk differences.
+quirk differences. It is the recommended path for reaching a registry: a `PROXY_SDMX30` data source covers every
+registry the proxy routes, so new ones are onboarded by configuration instead of one data source per provider. The
+direct `SDMX21` connector is deprecated; `QH_SDMX21` remains in use for QuantHub-based registries.
 
 **Key Responsibilities**:
 
@@ -182,7 +185,9 @@ quirk differences.
 - Format conversion across SDMX-JSON, SDMX-ML (XML), and SDMX-CSV
 - Agency-based routing (including sub-agency wildcarding and synthetic AgencyScheme discovery)
 - Caching, circuit breaking, retries, rate limiting, and per-registry response patching
-- Configuration-driven onboarding of new registries (no code change required)
+- Configuration-driven onboarding of new registries, without a code change or a redeploy: the configuration is
+  served by the config server and editable from the StatGPT Admin Portal as the `proxyConfig` of a
+  `PROXY_SDMX30` data source (see the [proxy registry guide](../guides/sdmx-proxy-registry-guide.md))
 
 #### Authentication & Authorization
 
@@ -198,7 +203,7 @@ network.
 |----------------------|--------------------------------------------------------------------------------------------------------|
 | **SDMX Registries**  | Upstream statistical data sources (IMF, BIS, and any registry added via configuration)                 |
 | **Redis** (optional) | Distributed cache (`CACHE_MODE=REDIS`). Falls back to in-memory Caffeine when unavailable.             |
-| **Config Server** (optional) | `sdmx-proxy-config-server` module — runtime-managed registry configuration when the bundled defaults aren't enough. |
+| **Config Server**    | `sdmx-proxy-config-server` module — the authoritative source of registry and agency-routing configuration at runtime. Admin Backend reads and writes it as the `proxyConfig` of a `PROXY_SDMX30` data source, so registries are onboarded without redeploying the proxy. Schema: [`sdmx-proxy-config/README.md`](https://github.com/epam/statgpt-sdmx-proxy/blob/development/sdmx-proxy-config/README.md). |
 
 ### 🕹️ StatGPT Admin Frontend
 

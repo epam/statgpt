@@ -20,9 +20,24 @@ A Data Source defines the connection to an external SDMX data provider. You must
 ### Steps in the Admin UI
 
 1. Navigate to **Data Sources** tab and click **Add**
-2. Select the data source type (e.g., SDMX 2.1)
+2. Select the data source type — `PROXY_SDMX30` is recommended (see below)
 3. Fill in the configuration YAML
 4. Save
+
+### Choosing a connector
+
+| Connector | Use it for | Status |
+|-----------|------------|--------|
+| `PROXY_SDMX30` | Access through the StatGPT SDMX Proxy | **Recommended** — the default choice |
+| `QH_SDMX21` | QuantHub-based registries only | Supported for that case |
+| `SDMX21` | A direct connection to a standard SDMX 2.1 REST endpoint | **Deprecated** |
+
+`PROXY_SDMX30` is recommended over a direct connection because the proxy absorbs the per-provider work:
+
+- **One Data Source covers many providers.** New registries are added by editing that source's `proxyConfig` in the Admin UI.
+- **Registry differences are handled for you.** The proxy deals with the SDMX version and response format each
+  registry speaks, and with known defects in their responses, so StatGPT does not have to.
+- **Timeouts, retries, and rate limits are configured per registry** in the same place.
 
 ### Data Source Configuration
 
@@ -52,6 +67,33 @@ sdmxConfig:
     # All other features default to true
 ```
 
+A `PROXY_SDMX30` Data Source — the recommended kind — reads through the StatGPT SDMX Proxy instead of a
+registry, and adds two keys. The values are illustrative; use the proxy URL and ID of your deployment:
+
+```yaml
+sdmxConfig:
+  id: STATGPT_SDMX_PROXY
+  name: StatGPT SDMX Proxy
+  url: http://statgpt-sdmx-proxy:8050    # The proxy, not an upstream registry
+providerDiscovery: agencyscheme          # Required here: `dataflows` is rejected for this connector
+configUrl: $env:{SDMX_PROXY_CONFIG_SERVER_HOST}/statgpt/sdmx-proxy-config-server/api/v0/config
+proxyConfig:                             # The proxy's registries and agency routing
+  structureFanOutEnabled: true
+  configs:
+    - name: OECD
+      versions:
+        SDMX_2_1: { }                    # Endpoints, formats, and quirk flags — abbreviated
+  agencies:
+    - name: OECD
+      primaryRegistry: OECD
+      allowSubAgencies: true
+```
+
+The SDMX Proxy config server owns `proxyConfig`, not StatGPT's database: it is read when the Data Source
+is read and pushed back on save. The minimum block per registry, the fields whose defaults amount to a
+refusal, and the per-registry quirk flags are covered in
+[Configuring SDMX Registries on a Proxy Data Source](../../guides/sdmx-proxy-registry-guide.md).
+
 ### Key Fields
 
 | Field | Description |
@@ -65,6 +107,8 @@ sdmxConfig:
 | `annotationsUrl` | Optional URL for fetching SDMX annotations (some providers serve annotations from a different endpoint) |
 | `attributesUrl` | Optional URL for fetching SDMX attributes from a different endpoint |
 | `dataExplorerUrl` | Optional URL to the provider's web-based data explorer (shown in citations) |
+| `configUrl` | `PROXY_SDMX30` only. URL of the SDMX Proxy config server. Defaults to `$env:{SDMX_PROXY_CONFIG_SERVER_HOST}` plus the server's standard path — override only for a non-standard deployment |
+| `proxyConfig` | `PROXY_SDMX30` only. The proxy's registry and agency-routing configuration. **Owned by the config server**, never stored in StatGPT's database: read when the Data Source is read, pushed back on save. Omitting it on save leaves the stored value untouched. See the [proxy registry guide](../../guides/sdmx-proxy-registry-guide.md) |
 
 ### Authentication
 
@@ -74,12 +118,17 @@ When `authEnabled: true`, provide credentials:
 
 ### What Data Sources Exist For
 
-Each data provider you want to query needs its own Data Source. For example:
+With a direct connection, each data provider needs its own Data Source. For example:
 - An IMF data source for IMF datasets (WEO, CPI, BOP, etc.)
 - A Eurostat data source for Eurostat datasets (NAMA_10_GDP, etc.)
 - A World Bank data source for WDI datasets
 
 A single channel can include datasets from multiple data sources.
+
+> **With `PROXY_SDMX30`, one Data Source covers many providers** — which is the main reason it is the
+> recommended connector. The proxy fronts several upstream registries and routes each agency to one of
+> them, so a new provider means a new entry in that source's `proxyConfig`, not a new Data Source. See
+> [Configuring SDMX Registries on a Proxy Data Source](../../guides/sdmx-proxy-registry-guide.md).
 
 ---
 

@@ -157,7 +157,7 @@ See [Module 04](04-dataset-configuration.md) for field-by-field details.
 
 ### Phase 5: Data Source & Channel ([Module 05](05-data-sources-and-channels.md))
 
-- [ ] Data Source exists for the provider
+- [ ] Data Source exists for the provider (`PROXY_SDMX30` recommended)
 - [ ] Dataset linked to channel
 - [ ] Channel Named Entity types updated if new NON_INDICATOR dimensions added
 
