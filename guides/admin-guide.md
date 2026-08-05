@@ -481,6 +481,10 @@ The toolbar provides channel-level operations:
 3. **Recalculate all indexes ▾** — reindex every dataset in the channel.
 4. **+ Add** — attach an existing dataset to this channel.
 
+> **⚠️ Limitation.** Index operations on a channel queue instead of running in parallel — reindexing takes a database
+> lock.
+> See [System Limitations](../architecture/limitations.md#-1-database-lock-during-reindexing).
+
 The table shows, per dataset: **Data Source**, the global **Dataset Status** (`Online`), the **Completed Version**
 and **Completed At** (the version currently served), the **Latest Version** / **Latest Updated** / **Latest Status**
 of the most recent indexing attempt, and **Last check** (the result of the most recent auto-update check).

@@ -42,5 +42,6 @@ These materials use **IMF datasets** as the primary examples (WEO, BOP, CPI, and
 - [Quick-Reference Card](quick-reference.md) — One-page decision trees, YAML template, and onboarding checklist
 - [StatGPT Public Admin Guide](../../guides/admin-guide.md) — UI screenshots and step-by-step instructions
 - [SDMX Compatibility & Requirements](../../architecture/sdmx-compatibility.md) — technical requirements for data sources
+- [System Limitations](../../architecture/limitations.md) — known constraints: reindexing lock, code-list-only dimensions
 - [StatGPT Architecture Overview](../../architecture/overview.md) — system-level architecture
 - [Data Query Evaluation Methodology](../../evaluation/data_query.md) — detailed evaluation metrics

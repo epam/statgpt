@@ -21,6 +21,7 @@ StatGPT bridges the gap between complex statistical databases and everyday users
 - [Services Overview](./architecture/services.md) - Core services and dependencies
 - [Architecture Overview](./architecture/overview.md) - Solution overview and core requirements
 - [SDMX Compatibility](./architecture/sdmx-compatibility.md) - SDMX integration details
+- [System Limitations](./architecture/limitations.md) - Known constraints of the current implementation
 
 ### [Application MCP](./architecture/mcp.md)
 Agentic access via the Model Context Protocol — channel tools surfaced to AI agents (Claude, Cursor, MCP-aware DIAL

@@ -115,6 +115,15 @@ Each dataset shows its indexing status in the "Status" column:
 3. Try reindexing again — transient errors (network timeouts, API rate limits) may resolve on retry
 4. If the problem persists, review the dataset's SDMX metadata for issues (see [Module 02](02-dataset-assessment.md))
 
+### Known Limitations
+
+**Index operations on a channel can't run in parallel** — reindexing takes a database lock, so **Reindex All**,
+deduplication, import and export queue behind each other. A job that waits too long fails; the previously completed
+version stays online, so nothing is lost — just retry it after the running job finishes.
+
+Reindex only the datasets that changed, one at a time, and run full-channel reindexing outside peak hours. Details:
+[System Limitations](../../architecture/limitations.md#-1-database-lock-during-reindexing).
+
 ---
 
 ## Deduplication

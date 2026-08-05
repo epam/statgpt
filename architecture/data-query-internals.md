@@ -327,6 +327,12 @@ display-only fields (`is_required`, `default_queries`, `all_values`, citation, â
 `ChannelDatasetVersion` model stores the hashes and indexing stats. Operationally this is driven from the CLI:
 `channel reindex`, `channel deduplicate`, and `channel status`.
 
+Reindexing deletes the prior index before rebuilding it: metadata rows are removed, then documents left without a
+metadata reference are cleared â€” one transaction over the channel's shared document tables, guarded by a PostgreSQL
+advisory lock keyed on `(collection_name, dataset_id)` and bounded by an advisory-lock timeout. Index-mutating operations
+on a channel therefore serialize, and a job that exceeds the timeout fails rather than blocking. See
+[System Limitations](./limitations.md#-1-database-lock-during-reindexing).
+
 ---
 
 ## 9. Availability, Construction & Execution

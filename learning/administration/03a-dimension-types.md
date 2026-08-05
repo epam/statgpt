@@ -62,6 +62,9 @@ Examples:
 The temporal dimension. There is exactly one TIME_PERIOD dimension per dataset. It is typically configured explicitly
 to set `defaultQueries` (default time ranges), though the system can identify it automatically from the SDMX structure.
 
+> **⚠️ All of these assume a code list.** `TIME_PERIOD` is the only non-enumerated dimension supported. See
+> [System Limitations](../../architecture/limitations.md#-2-only-codelist-backed-dimensions-are-supported).
+
 ---
 
 ## Consequences of Misclassification
