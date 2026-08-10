@@ -4,16 +4,18 @@ This document outlines the SDMX compatibility requirements and metadata standard
 effectively with statistical data sources.
 
 > **📝 Note**: StatGPT relies on the [sdmx1 library](https://github.com/khaeru/sdmx) for SDMX requests, therefore the
-> requirements are dictated by what is supported in that library.
+> requirements are dictated by what is supported in that library. Requests go through the
+> [StatGPT SDMX Proxy](https://github.com/epam/statgpt-sdmx-proxy), a unified SDMX 3.0 facade in front of upstream
+> registries, which handles version differences.
 
 ## 📊 SDMX Technical Requirements
 
 ### Version Support
 
-| Version      | Support Level         | Notes                                            |
-|--------------|-----------------------|--------------------------------------------------|
-| **SDMX 2.1** | ✅ Full Support        | Complete functionality via sdmx1 library         |
-| **SDMX 3.0** | ⚠️ Restricted Support | Limited compatibility dependent on sdmx1 library |
+| Version      | Support Level      | Notes                                                                                                                       |
+|--------------|--------------------|-----------------------------------------------------------------------------------------------------------------------------|
+| **SDMX 2.1** | ✅ Full Support     | Complete functionality via the SDMX Proxy                                                                                   |
+| **SDMX 3.0** | ⚠️ Partial Support | Metadata queries are not supported; metadata attributes can still be used when they are part of a dataflow's data structure |
 
 ### Format Requirements
 
@@ -169,6 +171,7 @@ Use this checklist to ensure your SDMX metadata meets StatGPT requirements:
 
 - [SDMX Official Documentation](https://sdmx.org/)
 - [sdmx1 Library Documentation](https://github.com/khaeru/sdmx)
+- [StatGPT SDMX Proxy](https://github.com/epam/statgpt-sdmx-proxy)
 
 ## ⚠️ Common Issues to Avoid
 
