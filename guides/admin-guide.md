@@ -52,7 +52,10 @@ StatGPT uses several key concepts that are referenced throughout this document:
 
 1. **Data Source** — A source of data that can be queried using the SDMX protocol. Examples include IMF, Eurostat,
    World Bank, etc. Each data source has a **connector** that determines how StatGPT talks to it
-   (`SDMX21`, `QH_SDMX21`, or `PROXY_SDMX30`).
+   (`PROXY_SDMX30`, `QH_SDMX21`, or the deprecated `SDMX21`). `PROXY_SDMX30` is the **recommended** connector: it
+   points at the StatGPT SDMX Proxy, which fronts several upstream registries, so one source serves many providers
+   and new registries are added by configuration rather than by adding sources — see
+   [Configuring SDMX Registries on a Proxy Data Source](./sdmx-proxy-registry-guide.md).
 2. **Dataset** — A direct representation of an SDMX dataflow in a data source, plus StatGPT-specific configuration
    (dimension roles, default queries, indexing options, citation, etc.).
 3. **Channel** — A representation of the StatGPT application for end users. Each channel has its own configuration,
@@ -92,9 +95,11 @@ Adding a source is a two-step wizard.
 
 1. **Name** — a unique identifier for the source (e.g. `IMF_SDMX21`). An optional description can be added below.
 2. **Connector** — choose how StatGPT connects to the registry:
-   - `SDMX21` — a standard SDMX 2.1 REST endpoint.
-   - `QH_SDMX21` — an SDMX 2.1 endpoint served through QuantHub (used by the IMF sample).
-   - `PROXY_SDMX30` — an SDMX 3.0 source accessed through the StatGPT SDMX Proxy.
+   - `PROXY_SDMX30` — **recommended.** Access through the StatGPT SDMX Proxy. One source covers many registries, and
+     new ones are added by editing its configuration in this UI — no code change and no redeploy.
+   - `QH_SDMX21` — only for QuantHub-based registries (used by the IMF sample).
+   - `SDMX21` — a direct connection to a standard SDMX 2.1 REST endpoint. **Deprecated:** existing sources keep
+     working, but use `PROXY_SDMX30` for new ones.
 3. **Next** — continue to the configuration editor.
 
 **Step 2 — Configuration.** Provide the connector configuration as YAML, then click **Finish**.
@@ -146,6 +151,63 @@ dataExplorerUrl: https://data.imf.org/en/Data-Explorer  # link surfaced to end u
 providerDiscovery: dataflows     # how providers/agencies are discovered
 ```
 
+<!-- SCREENSHOT (pending): ds-add-properties.png — re-capture only if the Connector dropdown changed
+     when PROXY_SDMX30 configuration landed. Badges: 1 Name, 2 Connector, 3 Next. -->
+
+A source for the StatGPT SDMX Proxy (connector `PROXY_SDMX30`, the recommended one) differs in two ways:
+`sdmxConfig.url` points at the **proxy**, not at a registry, and two extra keys appear. The values below are
+illustrative — substitute the proxy URL and ID of your deployment:
+
+```yaml
+locale: en
+sdmxConfig:
+  id: STATGPT_SDMX_PROXY         # unique data source id
+  name: StatGPT SDMX Proxy
+  url: http://statgpt-sdmx-proxy:8050          # the proxy, never an upstream registry
+providerDiscovery: agencyscheme   # required for this connector; `dataflows` is rejected
+configUrl: $env:{SDMX_PROXY_CONFIG_SERVER_HOST}/statgpt/sdmx-proxy-config-server/api/v0/config
+proxyConfig:                      # the proxy's registry and agency-routing configuration
+  structureFanOutEnabled: true
+  configs:
+    - name: OECD
+      description: Organisation for Economic Co-operation and Development
+      versions:
+        SDMX_2_1:
+          sdmxVersion: SDMX_2_1
+          structureEndpointConfig:
+            url: https://sdmx.oecd.org/public/rest/
+            supportedFormats: [XML_STRUCTURE_2_1]
+            defaultFormat: XML_STRUCTURE_2_1
+            supportedStructures: [datastructure, dataflow, codelist, conceptscheme]   # abbreviated
+          # ...dataEndpointConfig, availabilityEndpointConfig, resilienceConfig
+  agencies:
+    - name: OECD
+      primaryRegistry: OECD
+      allowSubAgencies: true
+```
+
+**About `proxyConfig`.** It is the SDMX Proxy's registry configuration: which upstream registries exist, how each is
+queried, and which agency routes to which registry.
+
+- **The config server owns it, not StatGPT's database.** StatGPT reads it from the SDMX Proxy config server when the
+  data source is read and pushes it back when the source is created or saved. `configUrl` locates that server and
+  resolves the `SDMX_PROXY_CONFIG_SERVER_HOST` environment variable.
+- **Omitting the key does not clear the value.** A save with no `proxyConfig` block leaves the stored registry
+  configuration untouched, so the other fields can be edited while the config server is unavailable.
+- **`422`** — the config server rejected the configuration; the message names the field at fault. **`502`** — the
+  config server could not be reached while the change was pushed. The save fails; the change is not dropped.
+- **A missing `proxyConfig` is a symptom.** Absent means the config server could not be read. Present but `null` means
+  it holds no configuration yet.
+
+<!-- SCREENSHOT (pending): ds-add-config-proxy.png — the Step 2 Configuration editor with a
+     PROXY_SDMX30 source selected, scrolled so `configUrl` and the head of `proxyConfig` are visible.
+     Badges: 1 Configuration editor, 2 the proxyConfig block, 3 Finish. Requires a sample-only
+     PROXY_SDMX30 data source on the environment; none exists in the sample seed configs today. -->
+
+> **Onboarding a registry.** The minimum block, the fields whose defaults amount to a refusal, per-registry quirks,
+> fixtures, and resilience are covered in
+> [Configuring SDMX Registries on a Proxy Data Source](./sdmx-proxy-registry-guide.md).
+
 ### Editing a data source
 
 To change connection parameters later, open the row **⋯** menu and choose **Configure**. This reopens the YAML editor.
@@ -154,6 +216,14 @@ To change connection parameters later, open the row **⋯** menu and choose **Co
 
 1. **Configuration editor** — edit the YAML in place.
 2. **Save** — apply the changes.
+
+For a `PROXY_SDMX30` source, the same editor changes the proxy's registry configuration. Edit `proxyConfig` and
+**Save**, and the change is pushed to the config server; the proxy is not redeployed. That configuration is not stored
+in StatGPT's database, so it is re-read every time the source is opened.
+
+<!-- SCREENSHOT (pending): ds-configure-proxy.png — the Configure editor of a PROXY_SDMX30 source
+     showing a populated proxyConfig. Badges: 1 Configuration editor, 2 Save. Same prerequisite as
+     ds-add-config-proxy.png. -->
 
 > See [Module 05 — Data Sources & Channel Configuration](../learning/administration/05-data-sources-and-channels.md)
 > of the learning course for connector details and source-discovery options, and
@@ -600,6 +670,13 @@ import or export runs as a background **job** linked to the channel.
    - `Update data sources` — update data sources to the versions in the archive.
 3. **Import** — start the import job.
 
+> **`PROXY_SDMX30` sources in an archive.** An export reads `proxyConfig` from the config server and writes it into the
+> archive with the rest of the data source configuration, so registry configuration travels with the channel. On
+> import, `Update data sources` pushes it to the *target* environment's config server, which can change how every
+> `PROXY_SDMX30` source there queries its registries. Two exceptions: an archived source whose `details` match the
+> existing ones is skipped, and a source exported while the config server was unreachable carries no `proxyConfig`, so
+> importing it leaves the target untouched.
+
 **Jobs.** Open the channel **⋯** menu → **Jobs** to see the import/export history for the channel, review job status,
 and download artifacts.
 
@@ -629,5 +706,7 @@ Each entry also records who initiated the change (the **Initiated** column, reda
 ## Related resources
 
 - [Admin Learning Course](../learning/administration/README.md) — end-to-end dataset onboarding methodology.
+- [Configuring SDMX Registries on a Proxy Data Source](./sdmx-proxy-registry-guide.md) — the `proxyConfig` block of a
+  `PROXY_SDMX30` data source.
 - [Architecture Overview](../architecture/overview.md) and [Agent design](../architecture/agent.md).
 - [SDMX Compatibility & Requirements](../architecture/sdmx-compatibility.md).
